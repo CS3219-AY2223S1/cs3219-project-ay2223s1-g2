@@ -1,6 +1,8 @@
 import {
     Box,
     Button,
+    ToggleButton,
+    ToggleButtonGroup,
     Typography
 } from "@mui/material";
 import {useState} from "react";
@@ -11,31 +13,41 @@ import {Link} from "react-router-dom";
 
 function DifficultyPage() {
 
-    const handleEasy = () => {
-        console.log('EZPZ')
+    const [difficulty, setDifficulty] = useState(['Easy'])
+
+    const handleDifficulty = (
+        event,
+        newDifficulty
+    ) => {
+        //setDifficulty([newDifficulty]) //uncomment for single selection difficulty
+        setDifficulty(newDifficulty)
+        
     }
 
-    const handleMedium = () => {
-        console.log('Gears are grinding')
-    }
-
-    const handleHard = () => {
-        console.log('Oof')
+    const handleFindMatch = () => {
+        if (difficulty.length == 0) {
+            console.log('Error! At least 1 difficulty level must be selected')
+            return
+        }
+        console.log(difficulty)
     }
 
     return (
         <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-            <Typography variant={"h3"} marginBottom={"2rem"}>Select a difficulty level.</Typography>
-            <Box display={"flex"} flexDirection={"column"} justifyContent={"space-around"} width={"20%"} height={"60%"}>
-                <Box m={1} >
-                    <Button size={"large"} fullWidth={true} variant={"outlined"} onClick={handleEasy}>Easy</Button>
-                </Box>
-                <Box m={1}>
-                    <Button size={"large"} fullWidth={true} variant={"outlined"} onClick={handleMedium}>Medium</Button>
-                </Box>
-                <Box m={1}>
-                    <Button size={"large"} fullWidth={true} variant={"outlined"} onClick={handleHard}>Hard</Button>
-                </Box>
+            <Typography variant={"h3"} marginBottom={"2rem"}>Select a difficulty level</Typography>
+            <ToggleButtonGroup
+                value={difficulty}
+                //exclusive //uncomment for single selection difficulty
+                onChange={handleDifficulty}
+                aria-label="Difficulty"
+            >
+                <ToggleButton value='Easy'>Easy</ToggleButton>
+                <ToggleButton value='Medium'>Medium</ToggleButton>
+                <ToggleButton value='Hard'>Hard</ToggleButton>
+            </ToggleButtonGroup>
+            
+            <Box mt={5} display={"flex"} flexDirection={"column"} >
+                <Button size={"large"} variant={"outlined"} onClick={handleFindMatch}>Find Match</Button>
             </Box>
         </Box>
     )
