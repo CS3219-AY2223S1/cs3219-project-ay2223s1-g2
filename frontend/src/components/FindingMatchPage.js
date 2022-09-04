@@ -59,14 +59,13 @@ function FindingMatchPage() {
             <Typography variant={"h3"} marginBottom={"2rem"}>
                 {findMatchFailed ? 'Unable to find a match. Try again?' : 'Finding a match...'}
             </Typography>
-            <Typography variant={"h3"} marginBottom={"2rem"}>
+            {isFindingMatch && <Typography variant={"h3"} marginBottom={"2rem"}>
                 {timeLeft+'s'}
-            </Typography>
+            </Typography>}
             {isFindingMatch && <CircularProgress 
                     variant="determinate" value={percentageTimeLeft} 
                     size={200}
-                    thickness={4}
-                    
+                    thickness={4} 
             />}
             <Box mt={5} display={"flex"} flexDirection={"column"} >
                 <Button size={"large"} variant={"outlined"} onClick={handleTimer} disabled={isFindingMatch}>Start Timer</Button>
