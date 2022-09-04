@@ -57,7 +57,7 @@ function FindingMatchPage() {
     return (
         <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
             <Typography variant={"h3"} marginBottom={"2rem"}>
-                {findMatchFailed ? 'Unable to find a match. Try again?' : 'Finding a match...'}
+                {(findMatchFailed && !isFindingMatch) ? 'Unable to find a match. Try again?' : 'Finding a match...'}
             </Typography>
             {isFindingMatch && <Typography variant={"h3"} marginBottom={"2rem"}>
                 {timeLeft+'s'}
