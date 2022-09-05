@@ -15,13 +15,22 @@ app.get('/', (req, res) => {
 
 const httpServer = createServer(app)
 
-const io = new Server(httpServer, { /* options */ });
+const io = new Server(httpServer, { 
+    /* options */ 
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"]
+    }
+});
 
 io.on("connection", (socket) => {
   // ...
   console.log("Welcome to a socket io connection!")
   socket.emit('message', "Hello, welcome!")
-  console.log('a user connected');
+  console.log('a user connected')
+  socket.on('match', (message) => {
+    console.log(message)
+  })
 });
 
 

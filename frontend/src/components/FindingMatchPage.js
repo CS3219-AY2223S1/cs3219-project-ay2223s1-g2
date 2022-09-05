@@ -50,11 +50,24 @@ function FindingMatchPage() {
       socket.on('message', (message) => {
         console.log(message)
       })
+
+      socket.on('matchSuccess', (message) => {
+        console.log('Match found.')
+        console.log(message)
+      })
+
+      socket.on('matchFail', (message) => {
+        console.log('Unable to find match.')
+        console.log(message)
+      })
   
       return () => {
         socket.off('connect');
         socket.off('disconnect');
         socket.off('pong');
+        socket.off('message');
+        socket.off('matchSuccess');
+        socket.off('matchFail');
       };
     }, []);
 
