@@ -11,6 +11,7 @@ import axios from "axios";
 import {URL_USER_SVC} from "../configs";
 import {STATUS_CODE_CONFLICT, STATUS_CODE_CREATED} from "../constants";
 import {Link} from "react-router-dom";
+import io from 'socket.io-client';
 
 function FindingMatchPage() {
     const TIME_LIMIT = 30*1000
@@ -26,6 +27,36 @@ function FindingMatchPage() {
     // 3. Connect page to Socket.io
     // 4. Emit find match event to server
     // 5. Change timer trigger to after emit find match
+
+
+    const socket = io('http://localhost:8001');
+    const [isConnected, setIsConnected] = useState(socket.connected);
+    const [lastPong, setLastPong] = useState(null);
+  
+    useEffect(() => {
+      socket.on('connect', () => {
+        setIsConnected(true);
+        socket.emit('match', 'Finding match...');
+      });
+  
+      socket.on('disconnect', () => {
+        setIsConnected(false);
+      });
+  
+      socket.on('pong', () => {
+        setLastPong(new Date().toISOString());
+      });
+
+      socket.on('message', (message) => {
+        console.log(message)
+      })
+  
+      return () => {
+        socket.off('connect');
+        socket.off('disconnect');
+        socket.off('pong');
+      };
+    }, []);
 
     const handleTimer = () => {
         setIsFindingMatch(true)
