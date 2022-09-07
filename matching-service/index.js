@@ -3,6 +3,7 @@ import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from "socket.io";
 import { sequelize } from './model/repository.js';
+import { matcher } from './model/match-init.js'
 
 const app = express();
 app.use(express.urlencoded({ extended: true }))
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
 const httpServer = createServer(app)
 const io = new Server(httpServer, {});
 
-const matchInit = require('./model/match-init.js')(sequelize);
+const matchInit = matcher(sequelize);
 
 sequelize.sync().then(console.log('Database synced'));
 

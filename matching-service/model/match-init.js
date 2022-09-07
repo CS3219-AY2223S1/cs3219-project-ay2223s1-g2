@@ -1,6 +1,6 @@
-const { Model, DataTypes } = require('sequelize');
+import { Model, DataTypes } from 'sequelize';
 
-module.exports = (sequelize) => {
+export const matcher = (sequelize) => {
     sequelize.define('matchInit', {
         username: {
             type: DataTypes.STRING,
