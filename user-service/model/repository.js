@@ -1,5 +1,4 @@
 import UserModel from './user-model.js';
-import MatchInit from './match-init.js';
 import 'dotenv/config'
 
 //Set up mongoose connection
