@@ -10,15 +10,16 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {URL_USER_SVC} from "../configs";
 import {STATUS_CODE_CONFLICT, STATUS_CODE_CREATED} from "../constants";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import io from 'socket.io-client';
-
+const socket = io('http://localhost:8001');
 function FindingMatchPage() {
     const TIME_LIMIT = 30*1000
     const [findMatchFailed, setFindMatchFailed] = useState(false)
     const [percentageTimeLeft, setPercentageTimeLeft] = useState(100)
     const [timeLeft, setTimeLeft] = useState(TIME_LIMIT/1000)
     const [isFindingMatch, setIsFindingMatch] = useState(false)
+    const navigate = useNavigate()
     // TODO:
     // 1. Console log time left every second
     // 2. Create countdown timer based on time left state. Button to trigger
@@ -29,14 +30,17 @@ function FindingMatchPage() {
     // 5. Change timer trigger to after emit find match
 
 
-    const socket = io('http://localhost:8001');
+    
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [lastPong, setLastPong] = useState(null);
-  
+    const handleMatchFound = (roomId) => {
+      navigate(`/room/${roomId}`)
+    }
+
     useEffect(() => {
+      console.log("mounting has occurred")
       socket.on('connect', () => {
         setIsConnected(true);
-        socket.emit('match', 'Finding match...');
       });
   
       socket.on('disconnect', () => {
@@ -51,9 +55,9 @@ function FindingMatchPage() {
         console.log(message)
       })
 
-      socket.on('matchSuccess', (message) => {
-        console.log('Match found.')
-        console.log(message)
+      socket.on('matchSuccess', (roomId) => {
+        console.log(`Match found. Room ID is ${roomId}`)
+        handleMatchFound(roomId)
       })
 
       socket.on('matchFail', (message) => {
@@ -70,6 +74,12 @@ function FindingMatchPage() {
         socket.off('matchFail');
       };
     }, []);
+
+    const handleFindMatch = () => {
+      handleTimer()
+      socket.emit('match', 'Finding match...');
+      console.log('finding')
+    }
 
     const handleTimer = () => {
         setIsFindingMatch(true)
@@ -112,7 +122,7 @@ function FindingMatchPage() {
                     thickness={4} 
             />}
             <Box mt={5} display={"flex"} flexDirection={"column"} >
-                <Button size={"large"} variant={"outlined"} onClick={handleTimer} disabled={isFindingMatch}>Start Timer</Button>
+                <Button size={"large"} variant={"outlined"} onClick={handleFindMatch} disabled={isFindingMatch}>Find Match</Button>
             </Box>
         </Box>
     )

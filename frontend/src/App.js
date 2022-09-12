@@ -2,6 +2,7 @@ import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom
 import SignupPage from './components/SignupPage';
 import DifficultyPage from "./components/DifficultyPage";
 import FindingMatchPage from "./components/FindingMatchPage";
+import RoomPage from "./components/RoomPage";
 import {Box} from "@mui/material";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
                         <Route path="/signup" element={<SignupPage/>}/>
                         <Route path="/difficulty" element={<DifficultyPage/>}/>
                         <Route path="/findmatch" element={<FindingMatchPage/>}/>
+                        <Route path="/room/:id" element={<RoomPage/>}/>
                     </Routes>
                 </Router>
             </Box>
