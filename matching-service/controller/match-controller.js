@@ -1,9 +1,12 @@
 import { ormInitiateMatch } from '../model/match-orm.js'
+import { ormMatchUser } from '../model/match-user.js'
 
-export const matchController = (socket) => {
+export const matchController = function (socket) {
     console.log("connected");
-
-    socket.on("matchInit", function (data) {
-        ormInitiateMatch(socket.id, data);
+    socket.join("room");
+    socket.on("matchInit", async (data, callback) => {
+        if (await ormMatchUser(socket, data.difficulty)) {
+            ormInitiateMatch(socket.id, data);
+        }
     });
 }
