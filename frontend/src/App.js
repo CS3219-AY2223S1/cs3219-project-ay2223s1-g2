@@ -3,6 +3,7 @@ import SignupPage from './components/SignupPage';
 import DifficultyPage from "./components/DifficultyPage";
 import FindingMatchPage from "./components/FindingMatchPage";
 import RoomPage from "./components/RoomPage";
+import HomePage from "./components/HomePage";
 import {Box} from "@mui/material";
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
             <Box display={"flex"} flexDirection={"column"} padding={"4rem"}>
                 <Router>
                     <Routes>
-                        <Route exact path="/" element={<Navigate replace to="/signup" />}></Route>
+                        <Route exact path="/" element={<Navigate replace to="/homepage" />}></Route>
+                        <Route path="/homepage" element={<HomePage/>}/>
                         <Route path="/signup" element={<SignupPage/>}/>
                         <Route path="/difficulty" element={<DifficultyPage/>}/>
                         <Route path="/findmatch" element={<FindingMatchPage/>}/>

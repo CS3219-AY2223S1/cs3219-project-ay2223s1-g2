@@ -23,13 +23,30 @@ const io = new Server(httpServer, {
     }
 });
 
+const handleFindMatch = () => {
+    console.log("Finding Match")
+    let roomId = Math.floor(Math.random() * 10000)
+    if (Math.random() < 0.8) {
+        console.log(roomId)
+        return roomId
+    }
+    console.log('-1')
+    return -1
+}
+
 io.on("connection", (socket) => {
-  // ...
   console.log("Welcome to a socket io connection!")
   socket.emit('message', "Hello, welcome!")
-  console.log('a user connected')
-  socket.on('match', (message) => {
+  console.log('A user connected')
+  socket.on('match', async (message) => {
     console.log(message)
+    let roomId = await new Promise((resolve) => setTimeout(() => resolve(handleFindMatch()), 3000))
+    console.log(roomId)
+    if (roomId == -1) {
+        socket.emit('matchFail')
+    } else {
+        socket.emit('matchSuccess', `${roomId}`)
+    }
   })
 });
 
