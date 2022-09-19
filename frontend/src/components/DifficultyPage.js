@@ -6,21 +6,22 @@ import {
     Typography
 } from "@mui/material";
 import {useState} from "react";
-import axios from "axios";
-import {URL_USER_SVC} from "../configs";
-import {STATUS_CODE_CONFLICT, STATUS_CODE_CREATED} from "../constants";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:8001');
 
 function DifficultyPage() {
-
+    
     const [difficulty, setDifficulty] = useState(['Easy'])
+    const navigate = useNavigate()
 
     const handleDifficulty = (
         event,
         newDifficulty
     ) => {
-        //setDifficulty([newDifficulty]) //uncomment for single selection difficulty
-        setDifficulty(newDifficulty)
+        setDifficulty([newDifficulty]) 
+        //setDifficulty(newDifficulty) //uncomment for single selection difficulty
         
     }
 
@@ -29,7 +30,14 @@ function DifficultyPage() {
             console.log('Error! At least 1 difficulty level must be selected')
             return
         }
-        console.log(difficulty)
+        console.log(difficulty[0])
+        let randomUsername = (Math.random() + 1).toString(36).substring(7)//stub username
+        navigate(`/findmatch`, {
+            state: {
+                username: randomUsername, 
+                difficulty: difficulty, 
+            }
+        })
     }
 
     return (
@@ -37,7 +45,7 @@ function DifficultyPage() {
             <Typography variant={"h3"} marginBottom={"2rem"}>Select a difficulty level</Typography>
             <ToggleButtonGroup
                 value={difficulty}
-                //exclusive //uncomment for single selection difficulty
+                exclusive //uncomment for single selection difficulty
                 onChange={handleDifficulty}
                 aria-label="Difficulty"
             >
