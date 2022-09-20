@@ -16,7 +16,7 @@ import {
     STATUS_CODE_LOGIN_SUCCESS,
     STATUS_CODE_WRONG_CREDENTIALS,
 } from "../constants";
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 function LoginPage() {
     const [username, setUsername] = useState("");
@@ -25,8 +25,7 @@ function LoginPage() {
     const [dialogTitle, setDialogTitle] = useState("");
     const [dialogMsg, setDialogMsg] = useState("");
     const [isLoginSuccess, setisLoginSuccess] = useState(false);
-    const cookies = new Cookies();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         setisLoginSuccess(false);
@@ -41,9 +40,9 @@ function LoginPage() {
             });
         if (res && res.status === STATUS_CODE_LOGIN_SUCCESS) {
             setSuccessDialog("Login Success");
-            // console.log(cookies.get("token"));
+            // console.log(cookies.get("token"))
             setisLoginSuccess(true);
-            // navigate('/matching');
+            navigate('/homepage');
         }
     };
 
