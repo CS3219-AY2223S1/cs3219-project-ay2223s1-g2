@@ -1,7 +1,10 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { JWT_EXPIRY, JWT_SECRET_KEY } from "../common/constants.js";
-import { ormFindUserByUsername as _findUserByUsername } from "../model/user-orm.js";
+import { signAccessToken } from "../helper/jwt-auth.js";
+import { blacklistToken } from "../helper/redis.js";
+import {
+    ormFindUserByUsername as _findUserByUsername,
+    ormDeleteUser as _deleteUser,
+} from "../model/user-orm.js";
 
 export async function logUserIn(req, res) {
     try {
@@ -18,7 +21,7 @@ export async function logUserIn(req, res) {
             bcrypt.compare(
                 password,
                 currUser.password,
-                function (err, success) {
+                async function (err, success) {
                     if (err) {
                         return res.status(500).json({
                             success: false,
@@ -27,9 +30,8 @@ export async function logUserIn(req, res) {
                         });
                     }
                     if (success) {
-                        const token = jwt.sign({ username }, JWT_SECRET_KEY, {
-                            expiresIn: JWT_EXPIRY,
-                        });
+                        const token = await signAccessToken(username);
+                        console.log(token);
                         return res.status(200).json({
                             userId: currUser._id,
                             success: true,
@@ -55,6 +57,20 @@ export async function logUserIn(req, res) {
         console.log(err);
         return res
             .status(500)
-            .json({ message: "Internal Server Error during Log-in $err" });
+            .json({ message: `Internal Server Error during Log-in ${err}` });
     }
 }
+
+export const logoutUser = async (req, res) => {
+    const isBlacklisted = await blacklistToken(req.headers["authorization"]);
+    console.log(isBlacklisted);
+    if (isBlacklisted) {
+        return res
+            .status(200)
+            .json({ messsage: "User logged out w/ JWT invalidated" });
+    } else {
+        return res
+            .status(500)
+            .json({ message: "Failed to blacklist JWT" });
+    }
+};

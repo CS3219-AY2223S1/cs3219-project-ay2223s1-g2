@@ -12,9 +12,12 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { URL_USER_SVC } from "../configs";
-import { STATUS_CODE_CONFLICT, STATUS_CODE_CREATED, STATUS_CODE_LOGIN_SUCCESS, STATUS_CODE_WRONG_CREDENTIALS } from "../constants";
-import { Link } from "react-router-dom";
-
+import {
+    STATUS_CODE_LOGIN_SUCCESS,
+    STATUS_CODE_WRONG_CREDENTIALS,
+} from "../constants";
+import { Link, useNavigation } from "react-router-dom";
+import Cookies from "universal-cookie";
 function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -22,11 +25,13 @@ function LoginPage() {
     const [dialogTitle, setDialogTitle] = useState("");
     const [dialogMsg, setDialogMsg] = useState("");
     const [isLoginSuccess, setisLoginSuccess] = useState(false);
+    const cookies = new Cookies();
+    // const navigate = useNavigate();
 
     const handleLogin = async () => {
         setisLoginSuccess(false);
         const res = await axios
-            .post(URL_USER_SVC+"/login", { username, password })
+            .post(URL_USER_SVC + "/login", { username, password })
             .catch((err) => {
                 if (err.response.status === STATUS_CODE_WRONG_CREDENTIALS) {
                     setErrorDialog("Wrong credentials provided");
@@ -36,7 +41,9 @@ function LoginPage() {
             });
         if (res && res.status === STATUS_CODE_LOGIN_SUCCESS) {
             setSuccessDialog("Login Success");
+            // console.log(cookies.get("token"));
             setisLoginSuccess(true);
+            // navigate('/matching');
         }
     };
 
@@ -84,7 +91,6 @@ function LoginPage() {
                     Log in
                 </Button>
             </Box>
-
             <Dialog open={isDialogOpen} onClose={closeDialog}>
                 <DialogTitle>{dialogTitle}</DialogTitle>
                 <DialogContent>
@@ -100,6 +106,7 @@ function LoginPage() {
                     )}
                 </DialogActions>
             </Dialog>
+            <Link to="/signup">Don't have an account?</Link>
         </Box>
     );
 }

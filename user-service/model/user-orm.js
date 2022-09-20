@@ -1,4 +1,10 @@
-import { createUser, checkIfUserExists, findUser } from "./repository.js";
+import { checkIfTokenBlacklisted } from "../helper/redis.js";
+import {
+    createUser,
+    checkIfUserExists,
+    findUser,
+    deleteUser,
+} from "./repository.js";
 
 //need to separate orm functions from repository to decouple business logic from persistence
 export async function ormCreateUser(username, password) {
@@ -7,7 +13,7 @@ export async function ormCreateUser(username, password) {
         newUser.save();
         return true;
     } catch (err) {
-        console.log("ERROR: Could not create new user");
+        console.log("<USER-ORM> ERROR: Could not create new user");
         return { err };
     }
 }
@@ -28,6 +34,24 @@ export const ormUserExists = async (username) => {
         return userFound;
     } catch (err) {
         console.log("<USER-ORM> ERROR: User Existence Check Failure");
+        return { err };
+    }
+};
+
+export const ormIsJWTValid = async (token) => {
+    try {
+        return !checkIfTokenBlacklisted;
+    } catch (err) {
+        console.log("<USER-ORM> ERROR: Redis Blacklist Query Fail");
+        return { err };
+    }
+};
+
+export const ormDeleteUser = async (username) => {
+    try {
+        return await deleteUser({ username });
+    } catch (err) {
+        console.log("<USER-ORM> ERROR: User Deletion Failure");
         return { err };
     }
 };

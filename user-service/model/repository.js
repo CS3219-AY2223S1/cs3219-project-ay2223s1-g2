@@ -18,6 +18,10 @@ export async function createUser(params) {
     return new UserModel(params);
 }
 
+export async function deleteUser(params) {
+    return UserModel.deleteOne(params);
+}
+
 export const findUser = async (params) => {
     return UserModel.findOne(params);
 };
