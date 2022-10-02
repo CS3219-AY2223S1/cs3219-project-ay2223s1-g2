@@ -1,5 +1,5 @@
 import { createClient } from "redis";
-
+import { extractSubstring } from "../common/common.js";
 export const client = createClient();
 
 client.on("connect", () => console.log("Client connected to Redis"));
@@ -16,14 +16,13 @@ process.on("SIGINT", () => {
 
 await client.connect();
 
-//Work on this
 export const blacklistToken = async (token) => {
-    await client.set(token, 0);
-    return true;
+    const tokenKey = extractSubstring(token, 1, " ");
+    await client.set(tokenKey, 0);
 };
 
 export const checkIfTokenBlacklisted = async (token) => {
-    const isBlacklisted = await client.get(token);
-    console.log(isBlacklisted === "0");
+    const tokenKey = extractSubstring(token, 1, " ");
+    const isBlacklisted = await client.get(tokenKey);
     return isBlacklisted === "0";
 };

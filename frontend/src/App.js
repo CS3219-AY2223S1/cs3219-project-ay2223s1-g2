@@ -5,23 +5,47 @@ import DifficultyPage from "./components/DifficultyPage";
 import FindingMatchPage from "./components/FindingMatchPage";
 import RoomPage from "./components/RoomPage";
 import HomePage from "./components/HomePage";
+import Profile from "./components/Profile";
+import UpdatePass from "./components/UpdatePass";
+import About from "./components/About";
 import {Box} from "@mui/material";
+import Navbar from "./components/Navbar";
+import EndPage from "./components/EndPage";
 
 function App() {
     return (
         <div className="App">
-            <Box display={"flex"} flexDirection={"column"} padding={"4rem"}>
+            <Box
+                style={{ marginTop: "20px" }}
+                display={"flex"}
+                flexDirection={"column"}
+                padding={"4rem"}
+            >
                 <Router>
+                    <Navbar />
                     <Routes>
-                        <Route exact path="/" element={<Navigate replace to="/login" />}></Route>
-                        <Route path="/signup" element={<SignupPage/>}/>
-                        <Route path="/login" element={<LoginPage/>}/>
-                        {/* <Route exact path="/" element={<Navigate replace to="/homepage" />}></Route> */}
-                        <Route path="/homepage" element={<HomePage/>}/>
-                        <Route path="/signup" element={<SignupPage/>}/>
-                        <Route path="/difficulty" element={<DifficultyPage/>}/>
-                        <Route path="/findmatch" element={<FindingMatchPage/>}/>
-                        <Route path="/room/:id" element={<RoomPage/>}/>
+                        <Route
+                            exact
+                            path="/"
+                            element={<Navigate replace to="/login" />}
+                        ></Route>
+                        <Route path="/signup" element={<SignupPage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/passChange" element={<UpdatePass />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/homepage" element={<HomePage />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/signup" element={<SignupPage />} />
+                        <Route path="/endPage" element={<EndPage />} />
+                        <Route
+                            path="/difficulty"
+                            element={<DifficultyPage />}
+                        />
+                        <Route
+                            path="/findmatch"
+                            element={<FindingMatchPage />}
+                        />
+                        <Route path="/room/:id" element={<RoomPage />} />
                     </Routes>
                 </Router>
             </Box>
