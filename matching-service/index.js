@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 const httpServer = createServer(app)
 
-const io = new Server(httpServer, { 
+export const io = new Server(httpServer, { 
     /* options */ 
     cors: {
         origin: "http://localhost:3000",

@@ -1,5 +1,7 @@
-import { sequelize } from './repository.js';
+import { io } from '../index.js'
+import { sequelize } from './repository.js'
 import { initiateMatch } from './match-init.js'
+import { initiateRoom } from './room-init.js'
 
 export async function ormInitiateMatch(id, data) {
     try {
@@ -44,8 +46,37 @@ export async function ormMatchUser(socket, difficulty) {
                 createdAt: users[0].createdAt
             }
         })
-        socket.to(users[0].sessionId).emit('matchSuccess', 'sucess');
-        socket.emit('matchSuccess', 'sucess');
+
+        //Generate unqiue roomId
+        const room = initiateRoom(sequelize)
+        //Set smaller socket id as sessionId1
+        let sessionId1, sessionId2
+        if (users[0].sessionId < socket.id) {
+            sessionId1 = users[0].sessionId
+            sessionId2 = socket.id
+        } else {
+            sessionId1 = socket.id
+            sessionId2 = users[0].sessionId
+        }
+
+        const createdRoom = await room.create({sessionId1: sessionId1, sessionId2: sessionId2})
+        // .complete(function(err, result) {
+        //     if(err) {
+        //         callback(0);
+        //     } else {
+        //         roomId = result.roomId.toString();    // This is generate primary key.
+        //     }
+        // })
+        
+        const roomId = createdRoom.roomId.toString()
+        console.log("***************************")
+        console.log(createdRoom)
+        console.log("***************************")
+        
+        // Make both sockets join room
+        io.of('/').sockets.get(users[0].sessionId).join(roomId);
+        io.of('/').sockets.get(socket.id).join(roomId);
+        
         return false;
     } else {
         return true;
