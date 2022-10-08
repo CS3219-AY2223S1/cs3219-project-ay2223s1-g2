@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { io } from '../index.js'
 import { sequelize } from './repository.js'
 import { initiateMatch } from './match-init.js'
@@ -73,9 +74,30 @@ export async function ormMatchUser(socket, difficulty) {
         console.log(createdRoom)
         console.log("***************************")
         
+        //Fetch Random question
+        let question = null
+        await axios.get('http://localhost:5200/api/randomquestion', {
+            params: {
+                difficulty: difficulty
+            }
+        })
+        .then(function (response) {
+        console.log(response.data);
+        question = response.data
+        })
+        .catch(function (error) {
+        console.log(error);
+        })
+        .finally(function () {
+        // always executed
+        });
+        
         // Make both sockets join room
         io.of('/').sockets.get(users[0].sessionId).join(roomId);
         io.of('/').sockets.get(socket.id).join(roomId);
+        
+        //Emit data to clients in the room
+        io.to(roomId).emit('matchSuccess', roomId, question);
         
         return false;
     } else {
