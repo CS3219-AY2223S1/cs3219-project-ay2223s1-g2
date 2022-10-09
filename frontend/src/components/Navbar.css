@@ -1,0 +1,4 @@
+.navBar {
+    background: var(--navbar-background);
+    height: var(--nav-size)
+}
