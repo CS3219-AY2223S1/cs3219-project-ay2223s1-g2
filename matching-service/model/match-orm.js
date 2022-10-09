@@ -61,18 +61,9 @@ export async function ormMatchUser(socket, difficulty) {
         }
 
         const createdRoom = await room.create({sessionId1: sessionId1, sessionId2: sessionId2})
-        // .complete(function(err, result) {
-        //     if(err) {
-        //         callback(0);
-        //     } else {
-        //         roomId = result.roomId.toString();    // This is generate primary key.
-        //     }
-        // })
         
-        const roomId = createdRoom.roomId.toString()
-        console.log("***************************")
-        console.log(createdRoom)
-        console.log("***************************")
+        // const roomId = createdRoom.roomId.toString()
+        const roomId = "room"
         
         //Fetch Random question
         let question = null
