@@ -51,3 +51,12 @@ export async function ormMatchUser(socket, difficulty) {
         return true;
     }
 }
+
+export async function ormDisconnectUser(socket) {
+    const matchInit = initiateMatch(sequelize);
+    matchInit.destroy({
+        where: {
+            sessionId: socket.id
+        }
+    })
+}
