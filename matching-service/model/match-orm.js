@@ -3,6 +3,7 @@ import { io } from '../index.js'
 import { sequelize } from './repository.js'
 import { initiateMatch } from './match-init.js'
 import { initiateRoom } from './room-init.js'
+import { v4 } from "uuid";
 
 export async function ormInitiateMatch(id, data) {
     try {
@@ -62,8 +63,7 @@ export async function ormMatchUser(socket, difficulty) {
 
         const createdRoom = await room.create({sessionId1: sessionId1, sessionId2: sessionId2})
         
-        // const roomId = createdRoom.roomId.toString()
-        const roomId = "room"
+        const roomId = v4();
         
         //Fetch Random question
         let question = null
