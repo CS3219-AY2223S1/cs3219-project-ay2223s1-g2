@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { collaborationController, createRoom } from "./controller/collaboration-controller.js";
+import { collaborationController } from "./controller/collaboration-controller.js";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -13,7 +13,7 @@ app.options("*", cors());
 app.get("/api", (req, res) => {
     res.send("Hello World from collaboration-service");
 });
-app.get("/api/createRoom", createRoom);
+// app.get("/api/createRoom", createRoom);
 
 const httpServer = createServer(app);
 

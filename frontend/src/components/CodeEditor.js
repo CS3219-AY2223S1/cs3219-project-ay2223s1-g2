@@ -6,14 +6,9 @@ import io from "socket.io-client";
 import { Text } from "@chakra-ui/react";
 import { useStore } from "./DataStore";
 
-const CodeEditor = () => {
+const CodeEditor = (params) => {
     const [users, setUsers] = useState([]);
-    const { username, roomId } = useStore(({ username, roomId }) => ({
-        username,
-        roomId,
-    }));
-    const userHard = "Sheeshs";
-    const roomHard = "19929b22-14c3-4460-9f18-d12f63bf882a";
+
     useEffect(() => {
         const editor = CodeMirror.fromTextArea(
             document.getElementById("code-editor"),
@@ -33,18 +28,22 @@ const CodeEditor = () => {
         });
 
         socket.on("connect_error", (err) => {
-            console.log(`Connection Error due to ${err.message}`);
+            console.log(
+                `Client-side socket connection error due to ${err.message}`
+            );
         });
 
         socket.on("connect", () => {
-            console.log("Connected");
             console.log(
-                `socketid is ${socket.id},roomID is ${roomHard} and userID is ${userHard}`
+                `socketid is ${socket.id},roomID is ${
+                    params.roomId
+                } and userID is ${
+                    params.username
+                } annd its type is ${typeof params.username}`
             );
-            // socket.emit("roomConnect", {roomId,username}); correct one here!
             socket.emit("roomConnect", {
-                roomId: roomHard,
-                username: userHard,
+                roomId: params.roomId,
+                username: params.username,
             });
         });
 
@@ -53,7 +52,8 @@ const CodeEditor = () => {
         });
 
         socket.on("roomConnect", (users) => {
-            console.log("roomConnect user triggered");
+            console.log(`roomConnect user triggered`);
+            console.log(users);
             setUsers(users);
         });
 
@@ -67,10 +67,9 @@ const CodeEditor = () => {
 
     return (
         <>
-            <Text fontSize="2xl">
+            <Text>
                 How many people are connected: <b> {users.length}</b>
             </Text>
-
             <textarea id="code-editor" />
         </>
     );

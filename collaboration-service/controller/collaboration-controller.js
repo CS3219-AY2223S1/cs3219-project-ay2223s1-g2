@@ -8,31 +8,16 @@ import {
     setRoomId,
     setString,
 } from "../middleware/redis.js";
-import { Server } from "socket.io";
 import { io } from "../../collaboration-service/index.js";
 
-export async function createRoom(req, res) {
-    try {
-        const { username } = req.body;
-        const roomId = v4();
-        await setRoomId(roomId);
-
-        res.status(201).send({ roomId });
-    } catch (err) {
-        return res.status(500).json({
-            message: "{Collaboration Service} Error when creating a room!",
-        });
-    }
-}
-
 export const collaborationController = function (socket) {
-
     socket.on("roomConnect", async ({ roomId, username }) => {
         if (!(roomId == null || username == null)) {
             console.log("Room connect triggered");
             console.log("socketid here", socket.id);
             console.log("usernam here", username);
             console.log("roomid here", roomId);
+            await setRoomId(roomId);
             await lpush(`${roomId}:users`, `${username}`);
             await setObject(socket.id, { roomId, username });
             const users = await lRangeKey(`${roomId}:users`, 0, -1);
