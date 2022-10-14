@@ -14,6 +14,7 @@ import axios from "axios";
 import {URL_USER_SVC} from "../configs";
 import {STATUS_CODE_CONFLICT, STATUS_CODE_CREATED} from "../constants";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import CodeEditor from "./CodeEditor";
 
 function RoomPage() {
     const params = useParams();
@@ -25,6 +26,7 @@ function RoomPage() {
     return (
         <Box display={"flex"} flexDirection={"column"} width={"100%"}>
             <Typography variant={"h3"} marginBottom={"2rem"}>Room Number {params.id}</Typography>
+            <CodeEditor></CodeEditor>
             <Button size={"Medium"} variant={"outlined"} onClick={handleNavigateHome}>Home</Button>
         </Box>
     )
