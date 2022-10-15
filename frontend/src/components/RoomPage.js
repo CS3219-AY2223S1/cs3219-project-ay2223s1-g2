@@ -7,14 +7,16 @@ import {
     DialogContentText,
     DialogTitle,
     TextField,
-    Typography
+    Typography,
 } from "@mui/material";
-import {useState} from "react";
+import { useState } from "react";
 import axios from "axios";
 import {URL_USER_SVC} from "../configs";
 import {STATUS_CODE_CONFLICT, STATUS_CODE_CREATED} from "../constants";
 import {Link, useNavigate, useParams, useLocation} from "react-router-dom";
 import { Base64 } from 'js-base64';
+import CodeEditor from "./CodeEditor";
+import Cookies from "universal-cookie";
 
 function RoomPage() {
     const params = useParams();
@@ -22,15 +24,12 @@ function RoomPage() {
     const {state} = useLocation();
     const { question } = state;
     const questionData = question.data[0]
-
     const roomId = params.id
-
     const handleNavigateHome = () => {
-        navigate('/homepage')
-    }
-
-    
-
+        navigate("/homepage");
+    };
+    const cookies = new Cookies();
+    const username = cookies.get("username");
     const questionBase64String = questionData.questionDesc
     const questionHtmlStr = Base64.decode(questionBase64String)
     
@@ -47,11 +46,11 @@ function RoomPage() {
             <>
                 <div dangerouslySetInnerHTML={{ __html: questionHtmlStr }} />
             </>
-
+            <CodeEditor username={username} roomId={roomId} />
             {/* <Typography variant={"h5"} marginBottom={"2rem"}>{questionData.questionDesc}</Typography> */}
             <Button size={"Medium"} variant={"outlined"} onClick={handleNavigateHome}>Home</Button>
         </Box>
-    )
+    );
 }
 
 export default RoomPage;
