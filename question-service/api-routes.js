@@ -20,20 +20,6 @@ router.route('/questions')
 router.route('/randomquestion')
     .get(questionController.randomQuestion);
 
-
-// router.route('/question')
-//     .post(questionController.new);
-
-// router.route('/randomquestion')
-//     .post(questionController.randomQuestion);
-
-
-// router.route('/contacts/:contact_id')
-//     .get(questionController.view)
-//     .patch(questionController.update)
-//     .put(questionController.update)
-//     .delete(questionController.delete);
-
 // Export API routes
 export default router;
 

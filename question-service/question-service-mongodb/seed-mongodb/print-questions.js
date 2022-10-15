@@ -17,11 +17,3 @@ await cursor.forEach((question) => {
 })
 
 //TODO: Fix having to Ctrl+C to terminate this program
-
-
-// for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
-//   console.log("Question:\n")
-//   console.log(doc)
-//   console.log(!doc)
-//   console.log("End")
-// }
