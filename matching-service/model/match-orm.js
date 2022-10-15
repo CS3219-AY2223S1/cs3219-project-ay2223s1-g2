@@ -1,5 +1,9 @@
-import { sequelize } from './repository.js';
+import axios from 'axios'
+import { io } from '../index.js'
+import { sequelize } from './repository.js'
 import { initiateMatch } from './match-init.js'
+import { initiateRoom } from './room-init.js'
+import { v4 } from "uuid";
 
 export async function ormInitiateMatch(id, data) {
     try {
@@ -44,8 +48,48 @@ export async function ormMatchUser(socket, difficulty) {
                 createdAt: users[0].createdAt
             }
         })
-        socket.to(users[0].sessionId).emit('matchSuccess', 'sucess');
-        socket.emit('matchSuccess', 'sucess');
+
+        //Generate unqiue roomId
+        const room = initiateRoom(sequelize)
+        //Set smaller socket id as sessionId1
+        let sessionId1, sessionId2
+        if (users[0].sessionId < socket.id) {
+            sessionId1 = users[0].sessionId
+            sessionId2 = socket.id
+        } else {
+            sessionId1 = socket.id
+            sessionId2 = users[0].sessionId
+        }
+
+        const createdRoom = await room.create({sessionId1: sessionId1, sessionId2: sessionId2})
+        
+        const roomId = v4();
+        
+        //Fetch Random question
+        let question = null
+        await axios.get('http://localhost:5200/api/randomquestion', {
+            params: {
+                difficulty: difficulty
+            }
+        })
+        .then(function (response) {
+        console.log(response.data);
+        question = response.data
+        })
+        .catch(function (error) {
+        console.log(error);
+        })
+        .finally(function () {
+        // always executed
+        });
+        
+        // Make both sockets join room
+        io.of('/').sockets.get(users[0].sessionId).join(roomId);
+        io.of('/').sockets.get(socket.id).join(roomId);
+        
+        //Emit data to clients in the room
+        io.to(roomId).emit('matchSuccess', roomId, question);
+        
         return false;
     } else {
         return true;
