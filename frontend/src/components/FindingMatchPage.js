@@ -42,8 +42,8 @@ function FindingMatchPage() {
     // 4. Emit find match event to server
     // 5. Change timer trigger to after emit find match
 
-    const handleMatchFound = (roomId) => {
-      navigate(`/room/${roomId}`)
+    const handleMatchFound = (roomId, question) => {
+      navigate(`/room/${roomId}`, {state: {question: question}})
     }
 
     useEffect(() => {
@@ -54,10 +54,10 @@ function FindingMatchPage() {
         socket.emit('matchInit', {username: location.state.username, difficulty: location.state.difficulty[0]})
       }
 
-      socket.on('matchSuccess', (roomId) => {
+      socket.on('matchSuccess', (roomId, question) => {
         if (!roomId) roomId = -1
         console.log(`Match found. Room ID is ${roomId}`)
-        handleMatchFound(roomId)
+        handleMatchFound(roomId, question)
       })
 
       socket.on('matchFailure', (message) => {
