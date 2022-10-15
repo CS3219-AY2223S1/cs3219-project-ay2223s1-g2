@@ -4,19 +4,19 @@ import {
     TextField,
     Button
 } from "@mui/material";
+import Grid2 from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
 import {useEffect, useState} from "react";
 import io from 'socket.io-client';
-const socket = io('http://localhost:8002');
-//https://codesandbox.io/s/material-ui-chat-drh4l?file=/src/Message.js
+const socket = io('http://localhost:8005');
 
 const MessageButton = styled(Button)`
   padding-top: 15px;
 `;
 
 const MessageField = styled(TextField)`
-  width: 90%;
+  width: 100%;
 `;
 
 const MessageBar = styled(Box)`
@@ -57,16 +57,19 @@ const ChatWindow = styled(Paper)`
   width: 100%;
 `;
 
-function ChatPage() {
+function ChatPage(username, roomId) {
     const [messages, setMessage] = useState([])
     const [chat, setChat] = useState('')
 
     function postMessage(event) {
         event.preventDefault()
-        socket.emit("sendMessage", {message: chat, username:"user"})
+        socket.emit("sendMessage", {message: chat, username: username})
     }
 
     useEffect(() => {
+      socket.on("connect", () => {
+        socket.emit("joinRoom", {roomId: roomId});
+      });
       socket.on("newMessage", (data) => {
         console.log(data)
         setMessage((state) => [
@@ -77,13 +80,13 @@ function ChatPage() {
             },
           ]);
       })
-    }, []);
+    }, [username, roomId]);
 
     return (
       <ChatWindow>
         <ChatBox elevation={2}>
           {messages.map((msg, i) => {
-            if (msg.username == "user") {
+            if (msg.username === username) {
               return <MessageRight key={i}>
                 <span>{msg.message}</span>
               </MessageRight>
@@ -96,8 +99,14 @@ function ChatPage() {
         </ChatBox>
         <MessageBar>
               <form onSubmit={postMessage}>
-                  <MessageField value={chat} onInput= { e=>setChat(e.target.value) }/>
-                  <MessageButton type="submit"><SendIcon/></MessageButton>
+                <Grid2 container spacing = {1}>
+                  <Grid2 xs = {10}>
+                    <MessageField value={chat} onInput= { e=>setChat(e.target.value) }/>
+                  </Grid2>
+                  <Grid2 xs = {2}>
+                    <MessageButton type="submit"><SendIcon/></MessageButton>
+                  </Grid2>
+                </Grid2>
               </form>
         </MessageBar>
       </ChatWindow>

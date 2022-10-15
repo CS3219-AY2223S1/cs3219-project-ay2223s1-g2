@@ -26,7 +26,7 @@ function DifficultyPage() {
     }
 
     const handleFindMatch = () => {
-        if (difficulty.length == 0) {
+        if (difficulty.length === 0) {
             console.log('Error! At least 1 difficulty level must be selected')
             return
         }

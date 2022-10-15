@@ -42,6 +42,7 @@ function LoginPage() {
         if (res && res.status === STATUS_CODE_SUCCESS) {
             setSuccessDialog("Login Success");
             cookies.set("token", res.data.token);
+            cookies.set("username", username);
             setisLoginSuccess(true);
             navigate("/difficulty");
         }

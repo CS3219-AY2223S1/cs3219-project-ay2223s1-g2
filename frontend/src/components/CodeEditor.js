@@ -1,12 +1,15 @@
+import {
+    Box
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/javascript/javascript";
 import CodeMirror from "codemirror";
 import io from "socket.io-client";
 import { Text } from "@chakra-ui/react";
-import { useStore } from "./DataStore";
 
 const CodeEditor = (params) => {
+    console.log(params);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -66,12 +69,12 @@ const CodeEditor = (params) => {
     }, []);
 
     return (
-        <>
+        <Box>
             <Text>
                 How many people are connected: <b> {users.length}</b>
             </Text>
             <textarea id="code-editor" />
-        </>
+        </Box>
     );
 };
 

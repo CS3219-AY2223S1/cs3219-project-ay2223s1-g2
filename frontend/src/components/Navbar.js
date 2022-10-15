@@ -10,22 +10,18 @@ import {
     Tabs,
     Toolbar,
     Typography,
-    useMediaQuery,
-    useTheme,
     Menu,
     MenuItem,
-    Popover,
 } from "@mui/material";
 import axios from "axios";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLaptopCode, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faLaptopCode} from "@fortawesome/free-solid-svg-icons";
 import Cookies from "universal-cookie";
 import { URL_USER_SVC } from "../configs";
 import {
     STATUS_CODE_INTERNAL_SERVER_ERROR,
-    STATUS_CODE_SUCCESS,
-    STATUS_CODE_WRONG_CREDENTIALS,
+    STATUS_CODE_SUCCESS
 } from "../constants";
 function Navbar() {
     const [value, setValue] = useState();

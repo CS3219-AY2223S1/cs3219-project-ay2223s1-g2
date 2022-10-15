@@ -1,11 +1,15 @@
 import { io } from '../index.js';
 
 export const chatController = function (socket) {
-    console.log("connected");
-    socket.join("room");
-    
+    let roomId;
+
+    socket.on("joinRoom", (data) => {
+        socket.join(data.roomId);
+        roomId = data.roomId;
+    });
+
     socket.on("sendMessage", async (data) => {
-        io.in("room").emit("newMessage",data);
+        io.in(roomId).emit("newMessage",data);
     });
 
 }
