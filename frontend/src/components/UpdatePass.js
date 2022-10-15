@@ -18,20 +18,37 @@ import {
 } from "../constants";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-function LoginPage() {
+
+function UpdatePass() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmedNewPassword, setConfirmedNewPassword] = useState("");
+
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [dialogTitle, setDialogTitle] = useState("");
     const [dialogMsg, setDialogMsg] = useState("");
     const cookies = new Cookies();
     const [isLoginSuccess, setisLoginSuccess] = useState(false);
-    const navigate = useNavigate();
 
-    const handleLogin = async () => {
+    axios.interceptors.request.use(
+        (config) => {
+            config.headers.authorization = `Bearer ${cookies.get("token")}`;
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        }
+    );
+
+    const handlePasswordChange = async () => {
         setisLoginSuccess(false);
         const res = await axios
-            .post(URL_USER_SVC + "/login", { username, password })
+            .post(URL_USER_SVC + "/updatePassword", {
+                username,
+                password,
+                newPassword,
+            })
             .catch((err) => {
                 if (err.response.status === STATUS_CODE_WRONG_CREDENTIALS) {
                     setErrorDialog("Wrong credentials provided");
@@ -40,10 +57,8 @@ function LoginPage() {
                 }
             });
         if (res && res.status === STATUS_CODE_SUCCESS) {
-            setSuccessDialog("Login Success");
-            cookies.set("token", res.data.token);
+            setSuccessDialog("Update Password Success");
             setisLoginSuccess(true);
-            navigate("/difficulty");
         }
     };
 
@@ -64,7 +79,7 @@ function LoginPage() {
     return (
         <Box display={"flex"} flexDirection={"column"} width={"30%"}>
             <Typography variant={"h3"} marginBottom={"2rem"}>
-                Log in
+                Update Password
             </Typography>
             <TextField
                 label="Username"
@@ -75,20 +90,38 @@ function LoginPage() {
                 autoFocus
             />
             <TextField
-                label="Password"
+                label="Old Password"
                 variant="standard"
-                type="password"
+                type="OldPassword"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 sx={{ marginBottom: "2rem" }}
             />
+            <TextField
+                label="New Password"
+                variant="standard"
+                type="newPassword"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                sx={{ marginBottom: "2rem" }}
+            />
+
+            <TextField
+                label="Confirmed Password"
+                variant="standard"
+                type="confirmedNewPassword"
+                value={confirmedNewPassword}
+                onChange={(e) => setConfirmedNewPassword(e.target.value)}
+                sx={{ marginBottom: "2rem" }}
+            />
+
             <Box
                 display={"flex"}
                 flexDirection={"row"}
                 justifyContent={"flex-end"}
             >
-                <Button variant={"outlined"} onClick={handleLogin}>
-                    Log in
+                <Button variant={"outlined"} onClick={handlePasswordChange}>
+                    Update
                 </Button>
             </Box>
             <Dialog open={isDialogOpen} onClose={closeDialog}>
@@ -98,7 +131,7 @@ function LoginPage() {
                 </DialogContent>
                 <DialogActions>
                     {isLoginSuccess ? (
-                        <Button component={Link} to="/login">
+                        <Button component={Link} to="/About">
                             Log in
                         </Button>
                     ) : (
@@ -106,9 +139,8 @@ function LoginPage() {
                     )}
                 </DialogActions>
             </Dialog>
-            <Link to="/signup">Don't have an account?</Link>
         </Box>
     );
 }
 
-export default LoginPage;
+export default UpdatePass;

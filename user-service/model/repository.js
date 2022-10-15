@@ -29,3 +29,7 @@ export const findUser = async (params) => {
 export const checkIfUserExists = async (params) => {
     return UserModel.exists(params);
 };
+
+export const updateUser = async (id, params) => {
+    return UserModel.findByIdAndUpdate(id, params);
+};

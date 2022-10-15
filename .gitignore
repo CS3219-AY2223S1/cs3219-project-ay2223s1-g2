@@ -6,3 +6,8 @@ user-service/node_modules/*
 user-service/.env
 
 chat-service/node_modules/*
+
+question-service/node_modules/*
+question-service/question-service-mongodb/seed-mongodb/node_modules/*
+question-service/question-service-mongodb/data/*
+question-service/question-service-mongodb/log/*

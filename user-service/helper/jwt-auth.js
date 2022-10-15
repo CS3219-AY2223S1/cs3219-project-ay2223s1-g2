@@ -14,8 +14,7 @@ export async function verifyToken(req, res, next) {
     if (!req.headers["authorization"]) return next(res.sendStatus(401));
     const authHeader = req.headers["authorization"];
     const jwtToken = authHeader.split(" ")[1];
-
-    if (await checkIfTokenBlacklisted(jwtToken)) {
+    if (await checkIfTokenBlacklisted(authHeader)) {
         return res.sendStatus(401);
     }
 

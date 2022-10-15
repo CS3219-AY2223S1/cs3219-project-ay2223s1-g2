@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { signAccessToken } from "../helper/jwt-auth.js";
-import { blacklistToken } from "../helper/redis.js";
+import { blacklistToken, checkIfTokenBlacklisted } from "../helper/redis.js";
 import {
     ormFindUserByUsername as _findUserByUsername,
     ormDeleteUser as _deleteUser,
@@ -9,7 +9,7 @@ import {
 export async function logUserIn(req, res) {
     try {
         const { username, password } = req.body;
-
+        console.log(username);
         if (!(username && password)) {
             return res
                 .status(400)
@@ -30,6 +30,7 @@ export async function logUserIn(req, res) {
                         });
                     }
                     if (success) {
+                        console.log("BREAK");
                         const token = await signAccessToken(username);
                         console.log(token);
                         return res.status(200).json({
@@ -62,15 +63,15 @@ export async function logUserIn(req, res) {
 }
 
 export const logoutUser = async (req, res) => {
-    const isBlacklisted = await blacklistToken(req.headers["authorization"]);
-    console.log(isBlacklisted);
+    await blacklistToken(req.headers["authorization"]);
+    const isBlacklisted = await checkIfTokenBlacklisted(
+        req.headers["authorization"]
+    );
     if (isBlacklisted) {
         return res
             .status(200)
             .json({ messsage: "User logged out w/ JWT invalidated" });
     } else {
-        return res
-            .status(500)
-            .json({ message: "Failed to blacklist JWT" });
+        return res.status(500).json({ message: "Failed to blacklist JWT" });
     }
 };
