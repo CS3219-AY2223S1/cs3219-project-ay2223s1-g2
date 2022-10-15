@@ -4,3 +4,5 @@ matching-service/node_modules/*
 
 user-service/node_modules/*
 user-service/.env
+
+chat-service/node_modules/*

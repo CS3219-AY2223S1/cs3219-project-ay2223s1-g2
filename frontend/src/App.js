@@ -5,6 +5,7 @@ import DifficultyPage from "./components/DifficultyPage";
 import FindingMatchPage from "./components/FindingMatchPage";
 import RoomPage from "./components/RoomPage";
 import HomePage from "./components/HomePage";
+import ChatPage from "./components/ChatPage";
 import {Box} from "@mui/material";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                         <Route path="/difficulty" element={<DifficultyPage/>}/>
                         <Route path="/findmatch" element={<FindingMatchPage/>}/>
                         <Route path="/room/:id" element={<RoomPage/>}/>
+                        <Route path="/chat" element={<ChatPage/>}/>
                     </Routes>
                 </Router>
             </Box>
