@@ -46,7 +46,7 @@ function RoomPage() {
                 </Grid2>
                 <Grid2 xs = {4}>
                     <div>
-                        {ChatPage()}
+                        {ChatPage(username, roomId)}
                     </div>
                 </Grid2>
             </Grid2>

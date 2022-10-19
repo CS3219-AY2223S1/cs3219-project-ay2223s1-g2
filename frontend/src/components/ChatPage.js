@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
 import {useEffect, useState} from "react";
 import io from 'socket.io-client';
-const socket = io('http://localhost:8005');
+
 
 const MessageButton = styled(Button)`
   padding-top: 15px;
@@ -58,12 +58,13 @@ const ChatWindow = styled(Paper)`
 `;
 
 function ChatPage(username, roomId) {
-    const [messages, setMessage] = useState([])
-    const [chat, setChat] = useState('')
+    const [messages, setMessage] = useState([]);
+    const [chat, setChat] = useState('');
+    const socket = io('http://localhost:8005');
 
     function postMessage(event) {
         event.preventDefault()
-        socket.emit("sendMessage", {message: chat, username: username})
+        socket.emit("sendMessage", { roomId: roomId, message: chat, username: username})
     }
 
     useEffect(() => {
@@ -79,7 +80,11 @@ function ChatPage(username, roomId) {
               message: data.message,
             },
           ]);
-      })
+      });
+      return () => {
+        socket.off('connect');
+        socket.off('newMessage');
+      }
     }, [username, roomId]);
 
     return (
