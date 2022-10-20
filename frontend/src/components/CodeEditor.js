@@ -1,6 +1,4 @@
-import {
-    Box
-} from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/javascript/javascript";
@@ -54,10 +52,10 @@ const CodeEditor = (params) => {
             console.log("Client side disconnected");
         });
 
-        socket.on("roomConnect", (users) => {
+        socket.on("roomConnect", (room) => {
             console.log(`roomConnect user triggered`);
-            console.log(users);
-            setUsers(users);
+            editor.setValue(room.code);
+            setUsers(room.users);
         });
 
         editor.on("change", (instance, changes) => {
@@ -70,9 +68,9 @@ const CodeEditor = (params) => {
 
     return (
         <Box>
-            <Text>
+            {/* <Text>
                 How many people are connected: <b> {users.length}</b>
-            </Text>
+            </Text> */}
             <textarea id="code-editor" />
         </Box>
     );
