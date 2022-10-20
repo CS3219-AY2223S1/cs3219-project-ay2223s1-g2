@@ -64,7 +64,10 @@ function ChatPage(username, roomId) {
 
     function postMessage(event) {
         event.preventDefault()
-        socket.emit("sendMessage", { roomId: roomId, message: chat, username: username})
+        if (chat) {
+          socket.emit("sendMessage", { roomId: roomId, message: chat, username: username})
+          setChat('');
+        }
     }
 
     useEffect(() => {
@@ -72,7 +75,7 @@ function ChatPage(username, roomId) {
         socket.emit("joinRoom", {roomId: roomId});
       });
       socket.on("newMessage", (data) => {
-        console.log(data)
+        console.log(data);
         setMessage((state) => [
             ...state,
             {
@@ -80,6 +83,10 @@ function ChatPage(username, roomId) {
               message: data.message,
             },
           ]);
+      });
+      socket.on("updateChatLog", (data) => {
+        console.log(data);
+        setMessage(data);
       });
       return () => {
         socket.off('connect');
@@ -104,11 +111,11 @@ function ChatPage(username, roomId) {
         </ChatBox>
         <MessageBar>
               <form onSubmit={postMessage}>
-                <Grid2 container spacing = {1}>
-                  <Grid2 xs = {10}>
+                <Grid2 container spacing = {0}>
+                  <Grid2 xs = {9}>
                     <MessageField value={chat} onInput= { e=>setChat(e.target.value) }/>
                   </Grid2>
-                  <Grid2 xs = {2}>
+                  <Grid2 xs = {3}>
                     <MessageButton type="submit"><SendIcon/></MessageButton>
                   </Grid2>
                 </Grid2>
