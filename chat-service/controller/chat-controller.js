@@ -2,7 +2,6 @@ import { io } from '../index.js';
 import {addMessage, getChatLog} from '../model/repository.js'
 
 export const chatController = function (socket) {
-    console.log("connected");
     socket.on("joinRoom", async (data) => {
         console.log("Room joined" + data.roomId);
         socket.join(data.roomId);

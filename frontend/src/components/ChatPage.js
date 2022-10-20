@@ -25,22 +25,22 @@ const MessageBar = styled(Box)`
 
 const MessageRight = styled(Box)`
   margin: 5px 10px;
-  margin-left: 60%;
+  margin-left: 40%;
   padding: 15px;
   background: lightblue;
-  min-width: 10%
-  max-width: 40%;
+  min-width: 11%
+  max-width: 60%;
   position: relative;
   float: right;
 `;
 
 const MessageLeft = styled(Box)`
   margin: 5px 10px;
-  margin-right: 60%;
+  margin-right: 40%;
   padding: 15px;
   background: lightgrey;
-  min-width: 10%
-  max-width: 40%;
+  min-width: 11%
+  max-width: 60%;
   position: relative;
   float: left;
 `;
@@ -64,7 +64,7 @@ function ChatPage(username, roomId) {
 
     function postMessage(event) {
         event.preventDefault()
-        if (chat) {
+        if (chat && chat.match(/^ *$/) === null) {
           socket.emit("sendMessage", { roomId: roomId, message: chat, username: username})
           setChat('');
         }
