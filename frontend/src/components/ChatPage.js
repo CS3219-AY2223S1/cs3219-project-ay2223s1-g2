@@ -91,6 +91,7 @@ function ChatPage(username, roomId) {
       return () => {
         socket.off('connect');
         socket.off('newMessage');
+        socket.off('updateChatLog');
       }
     }, [username, roomId]);
 

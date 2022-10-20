@@ -26,7 +26,7 @@ export async function ormMatchTimeout(socket) {
         }
     }).then(numberRows => {
         if (numberRows == 1) {
-            socket.emit('matchFailure', 'failure');
+            socket.emit('matchFailure', {message: 'failed to find match'});
         }
     })
 }
