@@ -1,4 +1,3 @@
-import { v4 } from "uuid";
 import {
     delKey,
     getObject,
@@ -6,7 +5,6 @@ import {
     lpush,
     lRangeKey,
     setRoomId,
-    setString,
 } from "../middleware/redis.js";
 import { io } from "../../collaboration-service/index.js";
 

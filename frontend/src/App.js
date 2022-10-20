@@ -5,6 +5,7 @@ import DifficultyPage from "./components/DifficultyPage";
 import FindingMatchPage from "./components/FindingMatchPage";
 import RoomPage from "./components/RoomPage";
 import HomePage from "./components/HomePage";
+import ChatPage from "./components/ChatPage";
 import Profile from "./components/Profile";
 import UpdatePass from "./components/UpdatePass";
 import About from "./components/About";
@@ -36,6 +37,7 @@ function App() {
                         <Route path="/homepage" element={<HomePage />} />
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/signup" element={<SignupPage />} />
+                        <Route path="/chat" element={<ChatPage/>}/>
                         <Route path="/endPage" element={<EndPage />} />
                         <Route
                             path="/difficulty"

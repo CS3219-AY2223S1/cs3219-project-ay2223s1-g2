@@ -1,19 +1,11 @@
 import {
     Box,
     Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    TextField,
-    Typography,
+    Typography
 } from "@mui/material";
-import { useState } from "react";
-import axios from "axios";
-import {URL_USER_SVC} from "../configs";
-import {STATUS_CODE_CONFLICT, STATUS_CODE_CREATED} from "../constants";
-import {Link, useNavigate, useParams, useLocation} from "react-router-dom";
+import Grid2 from '@mui/material/Unstable_Grid2';
+import {useNavigate, useParams, useLocation} from "react-router-dom";
+import ChatPage from "./ChatPage";
 import { Base64 } from 'js-base64';
 import CodeEditor from "./CodeEditor";
 import Cookies from "universal-cookie";
@@ -42,11 +34,22 @@ function RoomPage() {
     console.log(questionHtml.childNodes)
     return (
         <Box display={"flex"} flexDirection={"column"} width={"100%"}>
-            <Typography variant={"h3"} marginBottom={"2rem"}>{questionData.title}</Typography>
-            <>
+            <Grid2 container spacing = {2}>
+            <Grid2 xs = {12}>
+                <Typography variant={"h3"} marginBottom={"2rem"}>{questionData.title}</Typography>
+                <>
                 <div dangerouslySetInnerHTML={{ __html: questionHtmlStr }} />
-            </>
-            <CodeEditor username={username} roomId={roomId} />
+                </>
+             </Grid2>
+                <Grid2 xs = {8}>
+                    <CodeEditor username={username} roomId={roomId} />
+                </Grid2>
+                <Grid2 xs = {4}>
+                    <div>
+                        {ChatPage(username, roomId)}
+                    </div>
+                </Grid2>
+            </Grid2>
             {/* <Typography variant={"h5"} marginBottom={"2rem"}>{questionData.questionDesc}</Typography> */}
             <Button size={"Medium"} variant={"outlined"} onClick={handleNavigateHome}>Home</Button>
         </Box>
