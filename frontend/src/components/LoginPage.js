@@ -18,6 +18,7 @@ import {
 } from "../constants";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+import CodeEditor from "./CodeEditor";
 function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -42,6 +43,7 @@ function LoginPage() {
         if (res && res.status === STATUS_CODE_SUCCESS) {
             setSuccessDialog("Login Success");
             cookies.set("token", res.data.token);
+            cookies.set("username", username);
             setisLoginSuccess(true);
             navigate("/difficulty");
         }
