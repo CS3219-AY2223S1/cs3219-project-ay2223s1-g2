@@ -58,6 +58,12 @@ export const setString = async (key, string) => {
     });
 };
 
+export const getString = async (key) => {
+    return await client.get(key).catch((err) => {
+        console.error(1, err);
+    });
+};
+
 export const getObject = async (key) => {
     const result = await client.get(key);
     return JSON.parse(result);

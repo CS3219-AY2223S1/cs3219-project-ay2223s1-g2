@@ -5,6 +5,8 @@ import {
     lpush,
     lRangeKey,
     setRoomId,
+    setString,
+    getString,
 } from "../middleware/redis.js";
 import { io } from "../../collaboration-service/index.js";
 
@@ -21,20 +23,22 @@ export const collaborationController = function (socket) {
             const users = await lRangeKey(`${roomId}:users`, 0, -1);
             const roomName = `ROOM:${roomId}`;
             socket.join(roomName);
-            io.in(roomName).emit("roomConnect", users);
+            const  code  = (await getString(`${roomId}:code`)) || {};
+            io.in(roomName).emit("roomConnect", {users, "code": code});
         }
     });
 
     socket.on("codeChange", async (code) => {
         console.log(`codeChange triggered ${code}`);
-        const { roomId, username } = await getObject(socket.id);
+        const { roomId, username } = (await getObject(socket.id)) || {};
         const roomName = `ROOM:${roomId}`;
+        await setString(`${roomId}:code`, code);
         socket.to(roomName).emit("codeChange", code);
     });
 
     socket.on("disconnect", async () => {
         console.log("Room disconnect triggered");
-        const { roomId, username } = await getObject(socket.id);
+        const { roomId, username } = (await getObject(socket.id)) || {};
         console.log(
             `socketid is ${socket.id},roomID is ${roomId} and userID is ${username}`
         );
