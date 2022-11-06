@@ -2,7 +2,7 @@ name: Frontend CD
 
 on:
   push:
-    branches: [ main, feature/CI/CD ]
+    branches: [ main ]
     paths:
       - frontend/**
   pull_request:
@@ -43,5 +43,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: user/app:latest
-          context: ./frontend
+          tags: cs3219g2/frontend:latest
+          context: "{{defaultContext}}:frontend"
