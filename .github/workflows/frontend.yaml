@@ -10,8 +10,6 @@ on:
     paths:
       - frontend/**
 
-
-
 env:
   REACT_APP_QN_SERVER_IP: ${{secrets.QN_SERVER_IP}}
   REACT_APP_QN_SERVER_PORT: ${{secrets.QN_SERVER_PORT}}
