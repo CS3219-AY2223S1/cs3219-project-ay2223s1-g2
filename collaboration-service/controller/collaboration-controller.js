@@ -8,7 +8,7 @@ import {
     setString,
     getString,
 } from "../middleware/redis.js";
-import { io } from "../../collaboration-service/index.js";
+import { io } from "../index.js";
 
 export const collaborationController = function (socket) {
     socket.on("roomConnect", async ({ roomId, username }) => {

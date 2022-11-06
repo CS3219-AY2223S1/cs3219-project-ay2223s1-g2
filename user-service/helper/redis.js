@@ -1,6 +1,7 @@
 import { createClient } from "redis";
 import { extractSubstring } from "../common/common.js";
-export const client = createClient();
+import "dotenv/config";
+export const client = createClient({url: 'redis://' + process.env.REDIS_IP + ':' + process.env.REDIS_PORT});
 
 client.on("connect", () => console.log("Client connected to Redis"));
 

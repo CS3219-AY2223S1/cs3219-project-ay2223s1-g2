@@ -3,6 +3,7 @@ import { io } from '../index.js'
 import { sequelize } from './repository.js'
 import { initiateMatch } from './match-init.js'
 import { initiateRoom } from './room-init.js'
+import "dotenv/config";
 import { v4 } from "uuid";
 
 export async function ormInitiateMatch(id, data) {
@@ -67,7 +68,7 @@ export async function ormMatchUser(socket, difficulty) {
         
         //Fetch Random question
         let question = null
-        await axios.get('http://localhost:5200/api/randomquestion', {
+        await axios.get('http://' + process.env.QN_SERVER_URL + ':' + process.env.QN_SERVER_PORT + '/api/randomquestion', {
             params: {
                 difficulty: difficulty
             }
