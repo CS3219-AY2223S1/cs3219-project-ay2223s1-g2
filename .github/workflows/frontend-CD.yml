@@ -2,13 +2,15 @@ name: Frontend CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/CI/CD ]
     paths:
       - frontend/**
+      - .github/workflows/frontend-CD.yml
   pull_request:
-    branches: [ main ]
+    branches: [ main, feature/CI/CD  ]
     paths:
       - frontend/**
+      - .github/workflows/frontend-CD.yml
 
 env:
   REACT_APP_QN_SERVER_IP: ${{secrets.QN_SERVER_IP}}
