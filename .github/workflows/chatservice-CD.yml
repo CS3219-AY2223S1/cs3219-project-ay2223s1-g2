@@ -2,12 +2,12 @@ name: ChatService CD
 
 on:
   push:
-    branches: [ main, feature/CI/CD ]
+    branches: [ main ]
     paths:
       - chat-service/**
       - .github/workflows/chatservice-CD.yml
   pull_request:
-    branches: [ main, feature/CI/CD  ]
+    branches: [ main ]
     paths:
       - chat-service/**
       - .github/workflows/chatservice-CD.yml

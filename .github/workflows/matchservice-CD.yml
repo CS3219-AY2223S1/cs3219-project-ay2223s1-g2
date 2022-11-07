@@ -2,12 +2,12 @@ name: MatchService CD
 
 on:
   push:
-    branches: [ main, feature/CI/CD ]
+    branches: [ main ]
     paths:
       - matching-service/**
       - .github/workflows/matchservice-CD.yml
   pull_request:
-    branches: [ main, feature/CI/CD  ]
+    branches: [ main ]
     paths:
       - matching-service/**
       - .github/workflows/matchservice-CD.yml

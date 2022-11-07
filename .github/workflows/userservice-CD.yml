@@ -2,12 +2,12 @@ name: UserService CD
 
 on:
   push:
-    branches: [ main, feature/CI/CD ]
+    branches: [ main ]
     paths:
       - user-service/**
       - .github/workflows/userservice-CD.yml
   pull_request:
-    branches: [ main, feature/CI/CD  ]
+    branches: [ main ]
     paths:
       - user-service/**
       - .github/workflows/userservice-CD.yml

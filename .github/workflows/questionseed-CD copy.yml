@@ -1,20 +1,16 @@
-name: CollaborationService CD
+name: QuestionSeed CD
 
 on:
   push:
     branches: [ main ]
     paths:
-      - collaboration-service/**
-      - .github/workflows/collabservice-CD.yml
+      - question-seed/**
+      - .github/workflows/questionseed-CD.yml
   pull_request:
     branches: [ main ]
     paths:
-      - collaboration-service/**
-      - .github/workflows/collabservice-CD.yml
-
-env:
-  REDIS_IP: ${{secrets.COLLAB_REDIS_IP}}
-  REDIS_PORT: ${{secrets.COLLAB_REDIS_PORT}}
+      - question-seed/**
+      - .github/workflows/questionseed-CD.yml
 
 jobs:
   docker:
@@ -37,5 +33,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: cs3219g2/collabservice:latest
-          context: "{{defaultContext}}:collaboration-service"
+          tags: cs3219g2/questionseed:latest
+          context: "{{defaultContext}}:question-seed"

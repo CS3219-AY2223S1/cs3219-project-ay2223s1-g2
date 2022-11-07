@@ -14,6 +14,9 @@ services:
       context: ./user-service
     ports:
       - "8000:8000"
+    depends_on:
+      - usermongo
+      - userredis
 
   matching-service:
     image: cs3219g2/matchservice
@@ -28,6 +31,8 @@ services:
       context: ./collaboration-service
     ports:
       - "8002:8002"
+    depends_on:
+      - collabredis
 
   chatservice:
     image: cs3219g2/chatservice
@@ -35,6 +40,8 @@ services:
       context: ./chat-service
     ports:
       - "8005:8005"
+    depends_on:
+      - chatmongo
 
   questionservice:
     image: cs3219g2/questionservice
@@ -42,18 +49,25 @@ services:
       context: ./question-service
     ports:
       - "5200:5200"
+    depends_on:
+      - questionmongo
 
   chatmongo:
     image: mongo:latest
     command: mongod --port 27018
     ports:
-      - "27018:27018"
+      - "27018:27018"    
 
   questionmongo:
     image: mongo:latest
     command: mongod --port 27019
     ports:
       - "27019:27019"
+
+  mongo-seed:
+    image: cs3219g2/questionseed
+    depends_on:
+      - questionmongo
 
   usermongo:
     image: mongo:latest
