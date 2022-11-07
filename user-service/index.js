@@ -17,7 +17,7 @@ router.get('/', (_, res) => res.send('Hello World from user-service'))
 router.post('/', createUser)
 router.post("/login", logUserIn);
 // router.post("/logout", logoutUser);
-router.post("/deleteUser", deleteUser);
+router.post("/deleteUser",verifyToken, deleteUser);
 router.post("/logout",verifyToken, logoutUser);
 router.post("/updatePassword",verifyToken, updateUserPassword);
 
