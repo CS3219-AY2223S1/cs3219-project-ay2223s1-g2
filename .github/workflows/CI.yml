@@ -61,6 +61,9 @@ jobs:
     - run: npm run build --if-present
       working-directory: question-service
 
+    - run: npm start --if-present
+      working-directory: question-service
+
     - run: npm run seed --if-present
       working-directory: question-service
 
