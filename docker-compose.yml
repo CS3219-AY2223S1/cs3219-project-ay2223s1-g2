@@ -25,6 +25,9 @@ services:
       - "8002:8002"
     depends_on:
       - collabredis
+    enviroment:
+      COLLAB_REDIS_IP: ${COLLAB_REDIS_IP}
+      COLLAB_REDIS_PORT: ${COLLAB_REDIS_PORT}
 
   chatservice:
     image: cs3219g2/chatservice

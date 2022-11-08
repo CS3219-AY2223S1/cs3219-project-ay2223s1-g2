@@ -7,7 +7,7 @@ console.log(process.env.MONGO_IP);
 console.log(process.env.ENV);
 let mongoDB =
     process.env.ENV == "PROD"
-        ? 'mongodb://' + process.env.MONGO_IP + ':' + process.env.MONGO_PORT
+        ? 'mongodb://' + process.env.CHAT_MONGO_IP + ':' + process.env.CHAT_MONGO_PORT
         : process.env.DB_LOCAL_URI;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });

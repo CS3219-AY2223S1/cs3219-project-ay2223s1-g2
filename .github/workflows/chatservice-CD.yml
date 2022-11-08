@@ -7,12 +7,6 @@ on:
       - chat-service/**
       - .github/workflows/chatservice-CD.yml
 
-env:
-  ENV: PROD
-  MONGO_IP: ${{secrets.CHAT_MONGO_IP}}
-  MONGO_PORT: ${{secrets.CHAT_MONGO_PORT}}
-  DB_LOCAL_URI: mongodb://127.0.0.1:27017/
-
 jobs:
   docker:
     runs-on: ubuntu-latest
