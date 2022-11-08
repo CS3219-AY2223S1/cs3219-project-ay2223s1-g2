@@ -7,9 +7,9 @@ chai.use(chaiHttp);
 
 const username = "testSubject1";
 const password = "test@12345";
+const username2 = "testSubject12";
 const newPassword = "12345@test";
-let token = "";
-let token2 = "";
+var token = "";
 
 // Test the Get Route
 describe("/GET healthcheck", () => {
@@ -100,60 +100,6 @@ describe("Test Login Success", () => {
     });
 });
 
-describe("Test Logout", () => {
-    it("New user created", (done) => {
-        chai.request(server)
-            .post("/api/user")
-            .set("content-type", "application/json")
-            .send({
-                username: "testSubject12",
-                password: password,
-            })
-            .end((err, res) => {
-                console.log(res.body);
-                res.body.message.should.equal(
-                    "Created new user testSubject12 successfully!"
-                );
-                res.should.have.status(201);
-                done();
-            });
-    });
-
-    it("Login for username testSubject12", (done) => {
-        chai.request(server)
-            .post("/api/user/login")
-            .set("content-type", "application/json")
-            .send({
-                username: "testSubject12",
-                password: password,
-            })
-            .end((err, res) => {
-                res.body.message.should.equal(
-                    "Authentication Success: Log-in Completed"
-                );
-                token2 = res.body.token;
-                res.should.have.status(200);
-                console.log(token2);
-                done();
-            });
-    });
-
-    it("Logout Success", (done) => {
-        chai.request(server)
-            .post("/api/user/logout")
-            .set({ Authorization: `Bearer ${token2}` })
-            .set("content-type", "application/json")
-            .send({
-                username: "testSubject12",
-                password: "test@12345",
-            })
-            .end((err, res) => {
-                res.should.have.status(200);
-                done();
-            });
-    });
-});
-
 describe("Test Update Password Success", () => {
     it("Update password failure due to wrong password", (done) => {
         chai.request(server)
@@ -211,7 +157,6 @@ describe("Test Update Password Success", () => {
             });
     });
 });
-
 describe("Delete /api/user/deleteUser", () => {
     it("Delete user with wrong password Failure", (done) => {
         chai.request(server)
@@ -222,6 +167,7 @@ describe("Delete /api/user/deleteUser", () => {
                 password: newPassword + "Invalid",
             })
             .end((err, res) => {
+                console.log(res);
                 res.body.message.should.equal(
                     "Authentication Error: Wrong credentials"
                 );
@@ -239,7 +185,7 @@ describe("Delete /api/user/deleteUser", () => {
                 password: newPassword,
             })
             .end((err, res) => {
-                console.log(res.body);
+                console.log(res);
                 res.should.have.status(200);
                 res.body.message.should.equal("User deleted");
                 done();
