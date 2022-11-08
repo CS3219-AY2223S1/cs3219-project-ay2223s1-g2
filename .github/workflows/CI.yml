@@ -55,11 +55,11 @@ jobs:
               working-directory: chat-service
               env:
                   CI: true
-                  
+
             - name: Setup redis
               uses: shogo82148/actions-setup-redis@v1
               with:
-                  redis-version: ${{ matrix.redis }}
+                  redis-version: ${{ matrix.redis-version }}
                   auto-start: "false"
 
             - run: npm ci
