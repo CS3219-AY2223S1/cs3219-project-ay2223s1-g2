@@ -6,8 +6,6 @@ on:
     paths:
       - question-service/**
       - .github/workflows/questionservice-CD.yml
-  pull_request:
-    branches: [ main ]
 
 jobs:
   docker:
