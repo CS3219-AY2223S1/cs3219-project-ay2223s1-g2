@@ -12,6 +12,7 @@ import About from "./components/About";
 import {Box} from "@mui/material";
 import Navbar from "./components/Navbar";
 import EndPage from "./components/EndPage";
+import './App.css';
 
 function App() {
     return (
@@ -48,6 +49,7 @@ function App() {
                             element={<FindingMatchPage />}
                         />
                         <Route path="/room/:id" element={<RoomPage />} />
+                        <Route path="/room/test" element={<RoomPage />} />
                     </Routes>
                 </Router>
             </Box>

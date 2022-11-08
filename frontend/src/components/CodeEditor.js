@@ -5,6 +5,7 @@ import "codemirror/mode/javascript/javascript";
 import CodeMirror from "codemirror";
 import io from "socket.io-client";
 import { Text } from "@chakra-ui/react";
+import "./CodeEditor.css";
 
 const CodeEditor = (params) => {
     console.log(params);

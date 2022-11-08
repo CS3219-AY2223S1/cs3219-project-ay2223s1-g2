@@ -97,12 +97,6 @@ function Navbar() {
                                 value={value}
                                 onChange={(e, value) => setValue(value)}
                             >
-                                
-                                {isActive && <Tab
-                                    label="Home"
-                                    LinkComponent={Link}
-                                    to={"/homepage"}
-                                />}
                                 <Tab
                                     label="About Us"
                                     LinkComponent={Link}
