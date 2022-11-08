@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: setup env
-        working-directory: ./chat-service
+        working-directory: chat-service
         run: |
           echo 'ENV= PROD' >> .env
           echo 'MONGO_IP= ${{secrets.CHAT_MONGO_IP}}' >> .env
