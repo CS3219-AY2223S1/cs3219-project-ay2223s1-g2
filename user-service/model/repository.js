@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 
 let mongoDB =
     process.env.ENV == "PROD"
-        ? 'mongodb://' + process.env.MONGO_IP + ':' + process.env.MONGO_PORT
+        ? 'mongodb://' + process.env.USER_MONGO_IP + ':' + process.env.USER_MONGO_PORT
         : process.env.DB_LOCAL_URI;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });

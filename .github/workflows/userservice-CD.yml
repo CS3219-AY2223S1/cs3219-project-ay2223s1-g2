@@ -6,6 +6,8 @@ on:
     paths:
       - user-service/**
       - .github/workflows/userservice-CD.yml
+  pull_request:
+    branches: [ main ]
 
 jobs:
   docker:
