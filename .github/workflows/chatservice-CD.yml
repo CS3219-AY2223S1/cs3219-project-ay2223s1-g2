@@ -43,5 +43,9 @@ jobs:
           echo 'DB_LOCAL_URI= mongodb://127.0.0.1:27017/' >> .env
           cat .env
           ls -a
-      - name: ls
-        run: ls -a
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: cs3219g2/chatservice:latest
+          context: "{{defaultContext}}:chat-service"
