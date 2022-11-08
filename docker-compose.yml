@@ -3,15 +3,11 @@ version: '3.8'
 services:
   frontend:
     image: cs3219g2/frontend
-    build: 
-      context: ./frontend
     ports:
       - "3000:3000"
 
   user-service:
     image: cs3219g2/userservice
-    build: 
-      context: ./user-service
     ports:
       - "8000:8000"
     depends_on:
@@ -20,15 +16,11 @@ services:
 
   matching-service:
     image: cs3219g2/matchservice
-    build: 
-      context: ./matching-service
     ports:
       - "8001:8001"
 
   collab-service:
     image: cs3219g2/collabservice
-    build: 
-      context: ./collaboration-service
     ports:
       - "8002:8002"
     depends_on:
@@ -36,8 +28,6 @@ services:
 
   chatservice:
     image: cs3219g2/chatservice
-    build: 
-      context: ./chat-service
     ports:
       - "8005:8005"
     depends_on:
@@ -45,8 +35,6 @@ services:
 
   questionservice:
     image: cs3219g2/questionservice
-    build: 
-      context: ./question-service
     ports:
       - "5200:5200"
     depends_on:
