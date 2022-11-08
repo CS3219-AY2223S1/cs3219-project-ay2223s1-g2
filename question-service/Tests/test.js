@@ -81,7 +81,7 @@ describe("Question Service tests", () => {
             chai.request('http://localhost:5200')
             .get('/invalid/url')
             .end((err, res) => {
-                console.log(res)
+                // console.log(res)
                 expect(res).to.have.status(404); 
                 done();
             });
