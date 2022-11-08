@@ -101,6 +101,24 @@ describe("Test Login Success", () => {
 });
 
 describe("Test Logout", () => {
+    it("New user created", (done) => {
+        chai.request(server)
+            .post("/api/user")
+            .set("content-type", "application/json")
+            .send({
+                username: "testSubject12",
+                password: password,
+            })
+            .end((err, res) => {
+                console.log(res.body);
+                res.body.message.should.equal(
+                    "Created new user testSubject12 successfully!"
+                );
+                res.should.have.status(201);
+                done();
+            });
+    });
+
     it("Login for username testSubject12", (done) => {
         chai.request(server)
             .post("/api/user/login")
