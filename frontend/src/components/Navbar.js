@@ -31,7 +31,7 @@ function Navbar() {
         setAnchorElUser(event.currentTarget);
     };
     const settings = [
-        { text: "Profile", href: "/profile" },
+        // { text: "Profile", href: "/profile" },
         { text: "Change Password", href: "/passChange" },
     ];
     const [isActive, setIsActive] = useState(false);
@@ -60,6 +60,7 @@ function Navbar() {
             });
         if (res && res.status === STATUS_CODE_SUCCESS) {
             cookies.remove("token");
+            cookies.remove("username");
             navigate("/login");
         }
     };
@@ -84,21 +85,21 @@ function Navbar() {
 
     return (
         <React.Fragment>
-            <AppBar className="navBar">
-                <Toolbar>
-                    <FontAwesomeIcon icon={faLaptopCode} />
-                    <p style={{ marginLeft: "0.2rem" }}>Peerprep</p>
-                    {
-                        <>
-                            <Tabs
-                                sx={{ marginLeft: "auto" }}
-                                indicatorColor="secondary"
-                                textColor="inherit"
-                                value={value}
-                                onChange={(e, value) => setValue(value)}
-                            >
-                                
-                                {isActive && <Tab
+            {isActive && (
+                <AppBar className="navBar">
+                    <Toolbar>
+                        <FontAwesomeIcon icon={faLaptopCode} />
+                        <p style={{ marginLeft: "0.2rem" }}>Peerprep</p>
+                        {
+                            <>
+                                <Tabs
+                                    sx={{ marginLeft: "auto" }}
+                                    indicatorColor="secondary"
+                                    textColor="inherit"
+                                    value={value}
+                                    onChange={(e, value) => setValue(value)}
+                                >
+                                    {/* {isActive && <Tab
                                     label="Home"
                                     LinkComponent={Link}
                                     to={"/homepage"}
@@ -107,76 +108,77 @@ function Navbar() {
                                     label="About Us"
                                     LinkComponent={Link}
                                     to={"/about"}
-                                />
+                                /> */}
+                                    {isActive && (
+                                        <Tab
+                                            label="Match"
+                                            LinkComponent={Link}
+                                            to={"/difficulty"}
+                                        />
+                                    )}
+                                </Tabs>
                                 {isActive && (
-                                    <Tab
-                                        label="Match"
-                                        LinkComponent={Link}
-                                        to={"/difficulty"}
-                                    />
-                                )}
-                            </Tabs>
-                            {isActive && (
-                                <Box sx={{ flexGrow: 0 }}>
-                                    <Tooltip title="Open User Settings">
-                                        <IconButton
-                                            onClick={handleOpenUserMenu}
-                                            sx={{ p: 0 }}
-                                        >
-                                            <Avatar
-                                                alt="U"
-                                                src="/static/images/avatar/2.jpg"
-                                            />
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Menu
-                                        sx={{ mt: "45px" }}
-                                        id="menu-appbar"
-                                        anchorEl={anchorElUser}
-                                        anchorOrigin={{
-                                            vertical: "top",
-                                            horizontal: "right",
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: "top",
-                                            horizontal: "right",
-                                        }}
-                                        open={Boolean(anchorElUser)}
-                                        onClose={handleCloseUserMenu}
-                                    >
-                                        {settings.map((setting) => (
-                                            <Link
-                                                to={setting.href}
-                                                style={{ color: "#111111" }}
+                                    <Box sx={{ flexGrow: 0 }}>
+                                        <Tooltip title="Open User Settings">
+                                            <IconButton
+                                                onClick={handleOpenUserMenu}
+                                                sx={{ p: 0 }}
                                             >
-                                                <MenuItem
-                                                    key={setting.text}
-                                                    onClick={
-                                                        handleCloseUserMenu
-                                                    }
-                                                >
-                                                    <Typography textAlign="center">
-                                                        {setting.text}
-                                                    </Typography>
-                                                </MenuItem>
-                                            </Link>
-                                        ))}
-                                        <MenuItem
-                                            key={`Logout`}
-                                            onClick={handleLogout}
+                                                <Avatar
+                                                    alt="U"
+                                                    src="/static/images/avatar/2.jpg"
+                                                />
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Menu
+                                            sx={{ mt: "45px" }}
+                                            id="menu-appbar"
+                                            anchorEl={anchorElUser}
+                                            anchorOrigin={{
+                                                vertical: "top",
+                                                horizontal: "right",
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: "top",
+                                                horizontal: "right",
+                                            }}
+                                            open={Boolean(anchorElUser)}
+                                            onClose={handleCloseUserMenu}
                                         >
-                                            <Typography textAlign="center">
-                                                {"Log out"}
-                                            </Typography>
-                                        </MenuItem>
-                                    </Menu>
-                                </Box>
-                            )}
-                        </>
-                    }
-                </Toolbar>
-            </AppBar>
+                                            {settings.map((setting) => (
+                                                <Link
+                                                    to={setting.href}
+                                                    style={{ color: "#111111" }}
+                                                >
+                                                    <MenuItem
+                                                        key={setting.text}
+                                                        onClick={
+                                                            handleCloseUserMenu
+                                                        }
+                                                    >
+                                                        <Typography textAlign="center">
+                                                            {setting.text}
+                                                        </Typography>
+                                                    </MenuItem>
+                                                </Link>
+                                            ))}
+                                            <MenuItem
+                                                key={`Logout`}
+                                                onClick={handleLogout}
+                                            >
+                                                <Typography textAlign="center">
+                                                    {"Log out"}
+                                                </Typography>
+                                            </MenuItem>
+                                        </Menu>
+                                    </Box>
+                                )}
+                            </>
+                        }
+                    </Toolbar>
+                </AppBar>
+            )}
         </React.Fragment>
     );
 }
