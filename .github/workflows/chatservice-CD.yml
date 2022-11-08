@@ -32,8 +32,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: setup env
+        working-directory: ./chat-service
         run: |
-          cd chat-service
           echo 'ENV= PROD' >> .env
           echo 'MONGO_IP= ${{secrets.CHAT_MONGO_IP}}' >> .env
           echo 'MONGO_PORT= ${{secrets.CHAT_MONGO_PORT}}' >> .env
@@ -45,4 +45,4 @@ jobs:
         with:
           push: true
           tags: cs3219g2/chatservice:latest
-          context: .
+          context: "{{defaultContext}}:chat-service"
