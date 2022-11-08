@@ -19,6 +19,9 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         
@@ -32,8 +35,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: setup env
+        working-directory: chat-service
         run: |
-          ls
           echo 'ENV= PROD' >> .env
           echo 'MONGO_IP= ${{secrets.CHAT_MONGO_IP}}' >> .env
           echo 'MONGO_PORT= ${{secrets.CHAT_MONGO_PORT}}' >> .env
