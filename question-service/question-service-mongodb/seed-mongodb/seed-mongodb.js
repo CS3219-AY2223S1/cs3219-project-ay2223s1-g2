@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { Question } from './question-model.js'
 import { questionData } from './questionData.js'
 
-mongoose.connect('mongodb://localhost:5100', {
+mongoose.connect('mongodb://localhost:5100/test', {
 	useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => {
 	console.log('Connected to MongoDB instance.')
