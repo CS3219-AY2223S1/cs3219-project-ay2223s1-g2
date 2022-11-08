@@ -1,0 +1,44 @@
+name: ChatService CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - chat-service/**
+      - .github/workflows/chatservice-CD.yml
+
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: setup env
+        working-directory: chat-service
+        run: |
+          echo 'ENV= PROD' >> .env
+          echo 'MONGO_IP= ${{secrets.CHAT_MONGO_IP}}' >> .env
+          echo 'MONGO_PORT= ${{secrets.CHAT_MONGO_PORT}}' >> .env
+          echo 'DB_LOCAL_URI= mongodb://127.0.0.1:27017/' >> .env
+          cat .env
+          ls -a
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: cs3219g2/chatservice:latest
+          context: "{{defaultContext}}:chat-service"

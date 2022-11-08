@@ -9,7 +9,7 @@ import {
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import io from 'socket.io-client';
-const socket = io('http://localhost:8001');
+const socket = io('http://' + process.env.REACT_APP_MATCH_SERVER_IP +  ':' + process.env.REACT_APP_MATCH_SERVER_PORT);
 
 function FindingMatchPage() {
   const [difficulty, setDifficulty] = useState(['Easy'])
@@ -56,6 +56,10 @@ function FindingMatchPage() {
 
       socket.on('matchSuccess', (roomId, question) => {
         if (!roomId) roomId = -1
+        console.log(roomId);
+        console.log("roomId");
+        console.log(question);
+        console.log("question");
         console.log(`Match found. Room ID is ${roomId}`)
         handleMatchFound(roomId, question)
       })

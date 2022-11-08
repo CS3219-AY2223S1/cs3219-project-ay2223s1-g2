@@ -60,7 +60,7 @@ const ChatWindow = styled(Paper)`
 function ChatPage(username, roomId) {
     const [messages, setMessage] = useState([]);
     const [chat, setChat] = useState('');
-    const socket = io('http://localhost:8005');
+    const socket = io('http://' + process.env.REACT_APP_CHAT_SERVER_IP + ':' + process.env.REACT_APP_CHAT_SERVER_PORT);
 
     function postMessage(event) {
         event.preventDefault()
