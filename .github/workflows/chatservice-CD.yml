@@ -45,9 +45,3 @@ jobs:
           ls
       - name: ls
         run: ls
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: cs3219g2/chatservice:latest
-          context: "{{defaultContext}}:chat-service"
