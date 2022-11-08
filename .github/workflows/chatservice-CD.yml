@@ -6,6 +6,8 @@ on:
     paths:
       - chat-service/**
       - .github/workflows/chatservice-CD.yml
+  pull_request:
+    branches: [ main ]
 
 env:
   ENV: PROD
@@ -35,10 +37,4 @@ jobs:
           echo 'MONGO_IP= ${{secrets.CHAT_MONGO_IP}}' >> .env
           echo 'MONGO_PORT= ${{secrets.CHAT_MONGO_PORT}}' >> .env
           echo 'DB_LOCAL_URI= mongodb://127.0.0.1:27017/' >> .env
-
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: cs3219g2/chatservice:latest
-          context: "{{defaultContext}}:chat-service"
+          cat .env
