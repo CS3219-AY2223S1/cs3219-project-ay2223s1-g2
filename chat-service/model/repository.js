@@ -3,7 +3,8 @@ import "dotenv/config";
 
 //Set up mongoose connection
 import mongoose from "mongoose";
-
+console.log(process.env.MONGO_IP);
+console.log(process.env.ENV);
 let mongoDB =
     process.env.ENV == "PROD"
         ? 'mongodb://' + process.env.MONGO_IP + ':' + process.env.MONGO_PORT
