@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
    extended: true
 }));
-
+console.log(process.env.QN_MONGO_IP + ':' + process.env.QN_MONGO_PORT)
 async function mongooseConnect() {
     await mongoose.connect('mongodb://' + process.env.QN_MONGO_IP + ':' + process.env.QN_MONGO_PORT + '/test', { useNewUrlParser: true});
 }

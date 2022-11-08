@@ -20,3 +20,5 @@ question-service/question-service-mongodb/seed-mongodb/node_modules/*
 question-service/question-service-mongodb/data/*
 question-service/question-service-mongodb/log/*
 question-service/.env
+
+.env

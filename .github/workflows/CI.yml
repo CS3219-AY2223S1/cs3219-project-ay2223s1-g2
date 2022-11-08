@@ -39,10 +39,28 @@ jobs:
     - run: npm ci
       working-directory: chat-service
 
+    - name: Start Question Service MongoDB
+      uses: supercharge/mongodb-github-action@1.8.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-port: 5100
+
     - run: npm run build --if-present
       working-directory: chat-service
 
     - run: npm test
       working-directory: chat-service
+    
+    - run: npm ci
+      working-directory: question-service
+
+    - run: npm run build --if-present
+      working-directory: question-service
+
+    - run: npm run seed --if-present
+      working-directory: question-service
+
+    - run: npm test
+      working-directory: question-service
       env:
         CI: true
