@@ -1,7 +1,7 @@
 import { createClient } from "redis";
 import moment from "moment";
 import "dotenv/config";
-export const client = createClient({url: 'redis://' + process.env.REDIS_IP + ':' + process.env.REDIS_PORT});
+export const client = createClient({url: 'redis://' + process.env.COLLAB_REDIS_IP + ':' + process.env.COLLAB_REDIS_PORT});
 
 client.on("connect", () =>
     console.log("Collaboration client connected to Redis")

@@ -5,6 +5,18 @@ services:
     image: cs3219g2/frontend
     ports:
       - "3000:3000"
+    environment:
+      REACT_APP_QN_SERVER_IP: ${REACT_APP_QN_SERVER_IP}
+      REACT_APP_QN_SERVER_PORT: ${REACT_APP_QN_SERVER_PORT}
+      REACT_APP_USER_SERVER_IP: ${REACT_APP_USER_SERVER_IP}
+      REACT_APP_USER_SERVER_PORT: ${REACT_APP_USER_SERVER_PORT}
+      REACT_APP_MATCH_SERVER_IP: ${REACT_APP_MATCH_SERVER_IP}
+      REACT_APP_MATCH_SERVER_PORT: ${REACT_APP_MATCH_SERVER_PORT}
+      REACT_APP_COLLAB_SERVER_IP: ${REACT_APP_COLLAB_SERVER_IP}
+      REACT_APP_COLLAB_SERVER_PORT: ${REACT_APP_COLLAB_SERVER_PORT}
+      REACT_APP_CHAT_SERVER_IP: ${REACT_APP_CHAT_SERVER_IP}
+      REACT_APP_CHAT_SERVER_PORT: ${REACT_APP_CHAT_SERVER_PORT}
+      COLLAB_REDIS_IP: ${COLLAB_REDIS_IP}
 
   user-service:
     image: cs3219g2/userservice
@@ -13,11 +25,22 @@ services:
     depends_on:
       - usermongo
       - userredis
+    environment:
+      ENV: ${ENV}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      USER_MONGO_IP: ${USER_MONGO_IP}
+      USER_MONGO_PORT: ${USER_MONGO_PORT}
+      USER_REDIS_IP: ${USER_REDIS_IP}
+      USER_REDIS_PORT: ${USER_REDIS_PORT}
+      DB_LOCAL_URI: ${DB_LOCAL_URI}
 
   matching-service:
     image: cs3219g2/matchservice
     ports:
       - "8001:8001"
+    environment:
+      QN_SERVER_IP: ${QN_SERVER_IP}
+      QN_SERVER_PORT: ${QN_SERVER_PORT}
 
   collab-service:
     image: cs3219g2/collabservice
@@ -25,6 +48,9 @@ services:
       - "8002:8002"
     depends_on:
       - collabredis
+    environment:
+      COLLAB_REDIS_IP: ${COLLAB_REDIS_IP}
+      COLLAB_REDIS_PORT: ${COLLAB_REDIS_PORT}
 
   chatservice:
     image: cs3219g2/chatservice
@@ -32,6 +58,11 @@ services:
       - "8005:8005"
     depends_on:
       - chatmongo
+    environment:
+      ENV: ${ENV}
+      CHAT_MONGO_IP: ${CHAT_MONGO_IP}
+      CHAT_MONGO_PORT: ${CHAT_MONGO_PORT}
+      DB_LOCAL_URI: ${DB_LOCAL_URI}
 
   questionservice:
     image: cs3219g2/questionservice
@@ -39,6 +70,9 @@ services:
       - "5200:5200"
     depends_on:
       - questionmongo
+    environment:
+      QN_MONGO_PORT: ${QN_MONGO_PORT}
+      QN_MONGO_IP: ${QN_MONGO_IP}
 
   chatmongo:
     image: mongo:latest

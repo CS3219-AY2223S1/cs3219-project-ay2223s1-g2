@@ -7,15 +7,6 @@ on:
       - user-service/**
       - .github/workflows/userservice-CD.yml
 
-env:
-  ENV: PROD
-  JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
-  DB_CLOUD_URI: mongodb://host.docker.internal:27017/
-  MONGO_IP: ${{secrets.USER_MONGO_IP}}
-  MONGO_PORT: ${{secrets.USER_MONGO_PORT}}
-  REDIS_IP: ${{secrets.USER_REDIS_IP}}
-  REDIS_PORT: ${{secrets.USER_REDIS_PORT}}
-
 jobs:
   docker:
     runs-on: ubuntu-latest

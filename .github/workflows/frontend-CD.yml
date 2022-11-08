@@ -7,18 +7,6 @@ on:
       - frontend/**
       - .github/workflows/frontend-CD.yml
 
-env:
-  REACT_APP_QN_SERVER_IP: ${{secrets.QN_SERVER_IP}}
-  REACT_APP_QN_SERVER_PORT: ${{secrets.QN_SERVER_PORT}}
-  REACT_APP_USER_SERVER_IP: ${{secrets.USER_SERVER_IP}}
-  REACT_APP_USER_SERVER_PORT: ${{secrets.USER_SERVER_PORT}}
-  REACT_APP_MATCH_SERVER_IP: ${{secrets.MATCH_SERVER_IP}}
-  REACT_APP_MATCH_SERVER_PORT: ${{secrets.MATCH_SERVER_IP}}
-  REACT_APP_COLLAB_SERVER_IP: ${{secrets.COLLAB_SERVER_IP}}
-  REACT_APP_COLLAB_SERVER_PORT: ${{secrets.COLLAB_SERVER_IP}}
-  REACT_APP_CHAT_SERVER_IP: ${{secrets.CHAT_SERVER_IP}}
-  REACT_APP_CHAT_SERVER_PORT: ${{secrets.CHAT_SERVER_IP}}
-
 jobs:
   docker:
     runs-on: ubuntu-latest

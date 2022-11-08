@@ -7,10 +7,6 @@ on:
       - question-service/**
       - .github/workflows/questionservice-CD.yml
 
-env:
-  QN_MONGO_IP: ${{secrets.QN_MONGO_IP}}
-  QN_MONGO_PORT: ${{secrets.QN_MONG_PORT}}
-
 jobs:
   docker:
     runs-on: ubuntu-latest

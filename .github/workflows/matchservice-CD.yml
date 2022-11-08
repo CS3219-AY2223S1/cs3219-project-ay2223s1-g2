@@ -7,10 +7,6 @@ on:
       - matching-service/**
       - .github/workflows/matchservice-CD.yml
 
-env:
-  QN_SERVER_URL: ${{secrets.QN_SERVER_IP}}
-  QN_SERVER_PORT: ${{secrets.QN_SERVER_PORT}}
-
 jobs:
   docker:
     runs-on: ubuntu-latest

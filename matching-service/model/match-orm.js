@@ -68,7 +68,7 @@ export async function ormMatchUser(socket, difficulty) {
         
         //Fetch Random question
         let question = null
-        await axios.get('http://' + process.env.QN_SERVER_URL + ':' + process.env.QN_SERVER_PORT + '/api/randomquestion', {
+        await axios.get('http://' + process.env.QN_SERVER_IP + ':' + process.env.QN_SERVER_PORT + '/api/randomquestion', {
             params: {
                 difficulty: difficulty
             }
