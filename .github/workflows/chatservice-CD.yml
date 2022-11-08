@@ -44,7 +44,6 @@ jobs:
           cat .env
           ls
       - name: ls
-        working-directory: chat-service  
         run: ls
       - name: Build and push
         uses: docker/build-push-action@v3
