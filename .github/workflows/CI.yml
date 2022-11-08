@@ -60,7 +60,7 @@ jobs:
               uses: shogo82148/actions-setup-redis@v1
               with:
                   redis-version: ${{ matrix.redis-version }}
-                  auto-start: "false"
+                  auto-start: "true"
 
             - run: npm ci
               working-directory: user-service
