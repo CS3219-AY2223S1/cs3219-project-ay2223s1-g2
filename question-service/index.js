@@ -1,7 +1,7 @@
 // FileName: index.js// Import express
 import express from 'express'// Initialize the app
 import "dotenv/config";
-let app = express();// Setup server port
+export let app = express();// Setup server port
 
 
 // Import routes
