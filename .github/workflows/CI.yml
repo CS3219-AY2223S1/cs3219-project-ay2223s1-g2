@@ -41,6 +41,12 @@ jobs:
     - run: npm ci
       working-directory: chat-service
     
+    - run: npm run build --if-present
+      working-directory: chat-service
+
+    - run: npm test
+      working-directory: chat-service
+
     - run: docker rename mongodb chat-service-mongodb
     
     - name: Start Question Service MongoDB
@@ -49,11 +55,8 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
         mongodb-port: 5100
 
-    - run: npm run build --if-present
-      working-directory: chat-service
-
-    - run: npm test
-      working-directory: chat-service
+    - run: npm run seed --if-present
+      working-directory: question-service
 
     - run: npm ci
       working-directory: question-service
@@ -62,9 +65,6 @@ jobs:
       working-directory: question-service
 
     - run: npm start --if-present
-      working-directory: question-service
-
-    - run: npm run seed --if-present
       working-directory: question-service
 
     - run: npm test
