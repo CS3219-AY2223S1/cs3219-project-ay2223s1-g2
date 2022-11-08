@@ -10,6 +10,8 @@ env:
   ENV: PROD
   CHAT_MONGO_IP: 127.0.0.1
   CHAT_MONGO_PORT: 27017
+  QN_MONGO_IP: 127.0.0.1
+  QN_MONGO_PORT: 5200
 
 jobs:
   build:
