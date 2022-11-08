@@ -15,7 +15,7 @@ import { Base64 } from 'js-base64';
 import CodeEditor from "./CodeEditor";
 import Cookies from "universal-cookie";
 
-const CodeEditorTitleCard = styled(Card)`
+const TitleCard = styled(Card)`
   background-color: white;
 //   display: inline-block;
 `;
@@ -45,10 +45,20 @@ function RoomPage() {
     return (
         <Box display={"flex"} flexDirection={"column"} width={"100%"}>
             <Grid2 container rowSpacing={1} columnSpacing={2}>
-                <Grid2 xs = {12}>   
-                    <Card>
+                <Grid2 xs = {12}>
+                    <Card sx={{
+                        height: "40vh",
+                        overflowY: "scroll"
+                    }}
+                    >
                         <CardContent>
-                            <Typography variant={"h3"} marginBottom={"2rem"}>{questionData.title}</Typography>
+                            <Typography variant={"h5"} marginBottom={"0rem"} sx={{
+                                fontWeight: "bold"
+                            }}
+                            >
+                                {questionData.title}
+                            </Typography>
+                            <hr style={{color: "rgba(0, 0, 0, 0.3)"}}></hr>
                             <>
                                 <Box>
                                     <div dangerouslySetInnerHTML={{ __html: questionHtmlStr }} />
@@ -58,7 +68,7 @@ function RoomPage() {
                     </Card>
                 </Grid2>
                 <Grid2 item xs = {8} justifyContent="flex-start" >
-                    <CodeEditorTitleCard elevation={1}>
+                    <TitleCard elevation={1}>
                         <Typography noWrap 
                             align={"left"} 
                             padding="6px 8px 2px 8px" 
@@ -70,10 +80,10 @@ function RoomPage() {
                             Code Editor
                         </Typography>
                         <CodeEditor username={username} roomId={roomId} />
-                    </CodeEditorTitleCard>
+                    </TitleCard>
                 </Grid2>
                 <Grid2 xs = {4} justifyContent="flex-start">
-                    <CodeEditorTitleCard elevation={1} >
+                    <TitleCard elevation={1} >
                         <Typography noWrap 
                             align={"left"} 
                             padding="6px 8px 2px 8px" 
@@ -85,7 +95,7 @@ function RoomPage() {
                             Chat
                         </Typography>
                         {ChatPage(username, roomId)}
-                    </CodeEditorTitleCard>
+                    </TitleCard>
                 </Grid2>
 
 
@@ -111,18 +121,18 @@ function RoomPage() {
                     </Card>
                 </Grid2>
                 <Grid2 item xs = {8} justifyContent="flex-start" >
-                    <CodeEditorTitleCard elevation={1}>
+                    <TitleCard elevation={1}>
                         <Typography noWrap align={"center"} padding="4px 8px 2px 8px" lineHeight={1}>
                             Code Editor
                         </Typography>
-                    </CodeEditorTitleCard>
+                    </TitleCard>
                 </Grid2>
                 <Grid2 xs = {2} justifyContent="flex-start">
-                    <CodeEditorTitleCard elevation={1} >
+                    <TitleCard elevation={1} >
                         <Typography noWrap align={"center"} padding="4px 8px 2px 8px" lineHeight={1}>
                             Chat
                         </Typography>
-                    </CodeEditorTitleCard>
+                    </TitleCard>
                 </Grid2>
                 <Grid2 xs = {8}>
                     <Card>

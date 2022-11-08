@@ -12,6 +12,9 @@ import {
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import io from 'socket.io-client';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as faSolidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faRegStar } from "@fortawesome/free-regular-svg-icons";
 const socket = io('http://localhost:8001');
 
 const ToggleButtonCardSX = {
@@ -189,15 +192,22 @@ function FindingMatchPage() {
                     color='primary'
                     sx={{
                         fontSize: {
-                            lg: 24,
-                            md: 24,
-                            sm: 24,
-                            xs: 24
+                            lg: 40,
+                            md: 40,
+                            sm: 40,
+                            xs: 40
                           },
                         ...ToggleButtonCardSX
                     }}
                 >
-                    Easy
+                    <div>
+                        <div>Easy</div>
+                        <div>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faRegStar} size="1x"/>
+                            <FontAwesomeIcon icon={faRegStar} size="1x"/>
+                        </div>
+                    </div>
                 </ToggleButton>
                 <ToggleButton className={'toggleButtonCard'}
                     value='Medium'
@@ -212,22 +222,36 @@ function FindingMatchPage() {
                         ...ToggleButtonCardSX
                     }}
                 >
-                    Medium
+                    <div>
+                        <div>Medium</div>
+                        <div>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faRegStar} size="1x"/>
+                        </div>
+                    </div>
                 </ToggleButton>
                 <ToggleButton className={'toggleButtonCard'}
                     value='Hard'
                     color='primary'
                     sx={{
                         fontSize: {
-                            lg: 56,
-                            md: 56,
-                            sm: 56,
-                            xs: 56
+                            lg: 40,
+                            md: 40,
+                            sm: 40,
+                            xs: 40
                           },
                         ...ToggleButtonCardSX
                     }}
                 >
-                    Hard
+                    <div>
+                        <div>Hard</div>
+                        <div>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                        </div>
+                    </div>
                 </ToggleButton>
             </ToggleButtonGroup>
             

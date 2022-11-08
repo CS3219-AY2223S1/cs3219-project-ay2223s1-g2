@@ -11,6 +11,9 @@ import {
 import './ToggleButtonCard.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { toggleButtonCardTheme } from "./Themes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as faSolidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faRegStar } from "@fortawesome/free-regular-svg-icons";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import io from 'socket.io-client';
@@ -102,7 +105,9 @@ function DifficultyPage() {
 
     return (
         <Box display={"flex"} flexDirection={"column"} alignItems={"center"} >
-            <Typography variant={"h3"} marginBottom={"2rem"}>
+            <Typography variant={"h3"} marginBottom={"2rem"}
+                sx={{color: "rgba(0, 0, 0, 0.65)",}}
+            >
                 Choose your difficulty!
             </Typography>
             <ToggleButtonGroup
@@ -117,16 +122,23 @@ function DifficultyPage() {
                     color='primary'
                     sx={{
                         fontSize: {
-                            lg: 24,
-                            md: 24,
-                            sm: 24,
-                            xs: 24
+                            lg: 40,
+                            md: 40,
+                            sm: 40,
+                            xs: 40
                           },
                         ...ToggleButtonCardSX
                     }}
                 >
-                    Easy
-                </ToggleButton>
+                    <div>
+                        <div>Easy</div>
+                        <div>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faRegStar} size="1x"/>
+                            <FontAwesomeIcon icon={faRegStar} size="1x"/>
+                        </div>
+                    </div>
+                </ToggleButton>            
                 <ToggleButton className={'toggleButtonCard'}
                     value='Medium'
                     color='primary'
@@ -140,22 +152,36 @@ function DifficultyPage() {
                         ...ToggleButtonCardSX
                     }}
                 >
-                    Medium
+                    <div>
+                        <div>Medium</div>
+                        <div>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faRegStar} size="1x"/>
+                        </div>
+                    </div>
                 </ToggleButton>
                 <ToggleButton className={'toggleButtonCard'}
                     value='Hard'
                     color='primary'
                     sx={{
                         fontSize: {
-                            lg: 56,
-                            md: 56,
-                            sm: 56,
-                            xs: 56
+                            lg: 40,
+                            md: 40,
+                            sm: 40,
+                            xs: 40
                           },
                         ...ToggleButtonCardSX
                     }}
                 >
-                    Hard
+                    <div>
+                        <div>Hard</div>
+                        <div>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x" />
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                            <FontAwesomeIcon icon={faSolidStar} size="1x"/>
+                        </div>
+                    </div>
                 </ToggleButton>
             </ToggleButtonGroup>
             
