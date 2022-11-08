@@ -42,6 +42,6 @@ jobs:
           echo 'MONGO_PORT= ${{secrets.CHAT_MONGO_PORT}}' >> .env
           echo 'DB_LOCAL_URI= mongodb://127.0.0.1:27017/' >> .env
           cat .env
-          ls
+          ls -a
       - name: ls
-        run: ls
+        run: ls -a
