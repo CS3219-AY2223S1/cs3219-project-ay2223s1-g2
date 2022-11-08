@@ -22,7 +22,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: ["18.x"]
+                node-version: ["18.x", "16.x"]
                 mongodb-version: ["6.0"]
                 redis-version: [4]
 
@@ -40,10 +40,10 @@ jobs:
               with:
                   mongodb-version: ${{ matrix.mongodb-version }}
 
-            # - name: Start Redis
-            #   uses: supercharge/redis-github-action@1.4.0
-            #   with:
-            #       redis-version: ${{ matrix.redis-version }}
+            - name: Start Redis
+              uses: supercharge/redis-github-action@1.4.0
+              with:
+                  redis-version: ${{ matrix.redis-version }}
 
             - run: npm ci
               working-directory: chat-service
@@ -55,12 +55,6 @@ jobs:
               working-directory: chat-service
               env:
                   CI: true
-
-            - name: Setup redis
-              uses: shogo82148/actions-setup-redis@v1
-              with:
-                  redis-version: ${{ matrix.redis-version }}
-                  auto-start: "true"
 
             - run: npm ci
               working-directory: user-service
