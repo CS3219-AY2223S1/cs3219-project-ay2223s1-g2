@@ -38,7 +38,9 @@ jobs:
 
     - run: npm ci
       working-directory: chat-service
-
+    
+    - run: docker rename mongodb chat-service-mongodb
+    
     - name: Start Question Service MongoDB
       uses: supercharge/mongodb-github-action@1.8.0
       with:
@@ -50,8 +52,6 @@ jobs:
 
     - run: npm test
       working-directory: chat-service
-    
-    - run: docker rename mongodb chat-service-mongodb
 
     - run: npm ci
       working-directory: question-service
