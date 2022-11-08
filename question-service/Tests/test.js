@@ -2,7 +2,7 @@ import "dotenv/config";
 import chai from "chai";
 import chaiHttp from 'chai-http';
 import { expect } from "chai";
-import { app } from './index.js';
+import { app } from '../index.js';
 
 chai.use(chaiHttp)
 describe("Question Service tests", () => {
