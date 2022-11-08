@@ -35,7 +35,6 @@ describe("Test POST Creation of Users", () => {
                 password: password,
             })
             .end((err, res) => {
-                console.log(res.body);
                 res.body.message.should.equal(
                     "Created new user testSubject1 successfully!"
                 );
@@ -53,7 +52,6 @@ describe("Test POST Creation of Users", () => {
                 password: password,
             })
             .end((err, res) => {
-                console.log(res.body);
                 res.body.message.should.equal(
                     "(Duplicate Username): Kindly pick another username."
                 );
@@ -90,7 +88,6 @@ describe("Test Login Success", () => {
                 password: password + "Invalid",
             })
             .end((err, res) => {
-                console.log(res.body.message);
                 res.body.message.should.equal(
                     "Authentication Error: Wrong log-in credentials"
                 );
@@ -112,7 +109,6 @@ describe("Test Update Password Success", () => {
                 newPassword: newPassword,
             })
             .end((err, res) => {
-                console.log(res.body.message);
                 res.body.message.should.equal(
                     "Authentication Error: Wrong credentials"
                 );
@@ -132,7 +128,6 @@ describe("Test Update Password Success", () => {
                 newPassword: newPassword,
             })
             .end((err, res) => {
-                console.log(res.body.message);
                 res.body.message.should.equal("User Updated");
                 res.should.have.status(200);
                 done();
@@ -167,7 +162,6 @@ describe("Delete /api/user/deleteUser", () => {
                 password: newPassword + "Invalid",
             })
             .end((err, res) => {
-                console.log(res);
                 res.body.message.should.equal(
                     "Authentication Error: Wrong credentials"
                 );
@@ -185,7 +179,6 @@ describe("Delete /api/user/deleteUser", () => {
                 password: newPassword,
             })
             .end((err, res) => {
-                console.log(res);
                 res.should.have.status(200);
                 res.body.message.should.equal("User deleted");
                 done();
