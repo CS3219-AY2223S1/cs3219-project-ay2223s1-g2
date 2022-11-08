@@ -6,11 +6,6 @@ on:
     paths:
       - collaboration-service/**
       - .github/workflows/collabservice-CD.yml
-  pull_request:
-    branches: [ main ]
-    paths:
-      - collaboration-service/**
-      - .github/workflows/collabservice-CD.yml
 
 env:
   REDIS_IP: ${{secrets.COLLAB_REDIS_IP}}

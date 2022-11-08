@@ -6,11 +6,6 @@ on:
     paths:
       - matching-service/**
       - .github/workflows/matchservice-CD.yml
-  pull_request:
-    branches: [ main ]
-    paths:
-      - matching-service/**
-      - .github/workflows/matchservice-CD.yml
 
 env:
   QN_SERVER_URL: ${{secrets.QN_SERVER_IP}}

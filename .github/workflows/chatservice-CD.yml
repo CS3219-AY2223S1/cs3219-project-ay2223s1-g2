@@ -6,11 +6,8 @@ on:
     paths:
       - chat-service/**
       - .github/workflows/chatservice-CD.yml
-  pull_request:
-    branches: [ main ]
-    paths:
-      - chat-service/**
-      - .github/workflows/chatservice-CD.yml
+    paths-ignore:
+      - chat-service/Tests
 
 env:
   ENV: PROD

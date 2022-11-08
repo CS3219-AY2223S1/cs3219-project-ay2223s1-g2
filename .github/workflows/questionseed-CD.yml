@@ -6,11 +6,6 @@ on:
     paths:
       - question-seed/**
       - .github/workflows/questionseed-CD.yml
-  pull_request:
-    branches: [ main ]
-    paths:
-      - question-seed/**
-      - .github/workflows/questionseed-CD.yml
 
 jobs:
   docker:

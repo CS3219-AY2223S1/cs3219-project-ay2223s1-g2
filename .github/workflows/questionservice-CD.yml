@@ -6,11 +6,6 @@ on:
     paths:
       - question-service/**
       - .github/workflows/questionservice-CD.yml
-  pull_request:
-    branches: [ main ]
-    paths:
-      - question-service/**
-      - .github/workflows/questionservice-CD.yml
 
 env:
   QN_MONGO_IP: ${{secrets.QN_MONGO_IP}}
