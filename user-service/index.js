@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-const app = express();
+export const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors()); // config cors so that front-end can use
@@ -22,7 +22,7 @@ router.post("/verifyToken", verifyToken, (_, res) =>
 );
 router.post("/", createUser);
 router.post("/login", logUserIn);
-router.post("/deleteUser", verifyToken, deleteUser);
+router.delete("/deleteUser", verifyToken, deleteUser);
 router.post("/logout", verifyToken, logoutUser);
 router.post("/updatePassword", verifyToken, updateUserPassword);
 
