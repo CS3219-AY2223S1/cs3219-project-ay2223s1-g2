@@ -19,7 +19,11 @@ app.use(bodyParser.urlencoded({
    extended: true
 }));
 async function mongooseConnect() {
-    await mongoose.connect('mongodb://' + process.env.QN_MONGO_IP + ':' + process.env.QN_MONGO_PORT + '/test', { useNewUrlParser: true});
+    await mongoose.connect('mongodb://' + process.env.QN_MONGO_IP + ':' + process.env.QN_MONGO_PORT, 
+        { 
+            useNewUrlParser: true,
+            useUnifiedTopology: true 
+        });
 }
 
 try {
