@@ -180,9 +180,9 @@ function ChatPage(username, roomId) {
                         padding: "6px 4px 3px 4px",
                         fontSize: {
                           lg: 16,
-                          md: 16,
-                          sm: 12,
-                          xs: 8
+                          md: 14,
+                          sm: 10,
+                          xs: 6
                         }}}
                     >
                       Send
