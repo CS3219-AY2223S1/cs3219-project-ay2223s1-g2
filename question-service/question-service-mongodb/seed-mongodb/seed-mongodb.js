@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
 import { Question } from './question-model.js'
 import { questionData } from './questionData.js'
+import "dotenv/config";
 
-mongoose.connect('mongodb://127.0.0.1:27017', {
+mongoose.connect('mongodb://' + process.env.QN_MONGO_IP + ':' + process.env.QN_MONGO_PORT, {
 	useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => {
 	console.log('Connected to MongoDB instance.')

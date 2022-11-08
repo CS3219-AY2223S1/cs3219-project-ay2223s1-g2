@@ -6,7 +6,6 @@ import { app } from '../index.js';
 
 chai.use(chaiHttp)
 describe("Question Service tests", () => {
-  let  socket;
 
     before(function(done) {
         done()
