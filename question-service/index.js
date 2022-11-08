@@ -1,5 +1,6 @@
 // FileName: index.js// Import express
 import express from 'express'// Initialize the app
+import "dotenv/config";
 let app = express();// Setup server port
 
 
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 async function mongooseConnect() {
-    await mongoose.connect('mongodb://localhost:5100', { useNewUrlParser: true});
+    await mongoose.connect('mongodb://' + process.env.QN_MONGO_IP + ':' + process.env.QN_MONGO_PORT + '/test', { useNewUrlParser: true});
 }
 
 try {

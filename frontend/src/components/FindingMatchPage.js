@@ -12,10 +12,13 @@ import {
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import io from 'socket.io-client';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as faSolidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faRegStar } from "@fortawesome/free-regular-svg-icons";
-const socket = io('http://localhost:8001');
+
+const socket = io('http://' + process.env.REACT_APP_MATCH_SERVER_IP +  ':' + process.env.REACT_APP_MATCH_SERVER_PORT);
+
 
 const ToggleButtonCardSX = {
   "&:hover": {
@@ -115,6 +118,10 @@ function FindingMatchPage() {
 
       socket.on('matchSuccess', (roomId, question) => {
         if (!roomId) roomId = -1
+        console.log(roomId);
+        console.log("roomId");
+        console.log(question);
+        console.log("question");
         console.log(`Match found. Room ID is ${roomId}`)
         handleMatchFound(roomId, question)
       })

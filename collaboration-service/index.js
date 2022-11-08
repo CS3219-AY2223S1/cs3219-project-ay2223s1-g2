@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import "dotenv/config";
 import { collaborationController } from "./controller/collaboration-controller.js";
 
 const app = express();
