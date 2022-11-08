@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: cs3219g2/frontend
+    build: 
+      context: ./frontend
+    ports:
+      - "3000:3000"
+
+  user-service:
+    image: cs3219g2/userservice
+    build: 
+      context: ./user-service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - usermongo
+      - userredis
+
+  matching-service:
+    image: cs3219g2/matchservice
+    build: 
+      context: ./matching-service
+    ports:
+      - "8001:8001"
+
+  collab-service:
+    image: cs3219g2/collabservice
+    build: 
+      context: ./collaboration-service
+    ports:
+      - "8002:8002"
+    depends_on:
+      - collabredis
+
+  chatservice:
+    image: cs3219g2/chatservice
+    build: 
+      context: ./chat-service
+    ports:
+      - "8005:8005"
+    depends_on:
+      - chatmongo
+
+  questionservice:
+    image: cs3219g2/questionservice
+    build: 
+      context: ./question-service
+    ports:
+      - "5200:5200"
+    depends_on:
+      - questionmongo
+
+  chatmongo:
+    image: mongo:latest
+    command: mongod --port 27018
+    ports:
+      - "27018:27018"    
+
+  questionmongo:
+    image: mongo:latest
+    command: mongod --port 27019
+    ports:
+      - "27019:27019"
+
+  mongo-seed:
+    image: cs3219g2/questionseed
+    depends_on:
+      - questionmongo
+
+  usermongo:
+    image: mongo:latest
+    command: mongod --port 27020
+    ports:
+      - "27020:27020"
+
+  userredis:
+    image: redis:latest
+    command: --port 6380
+    ports:
+      - "6380:6380"
+
+  collabredis:
+    image: redis:latest
+    command: --port 6381
+    ports:
+      - "6381:6381"

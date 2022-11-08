@@ -19,7 +19,7 @@ const CodeEditor = (params) => {
             }
         );
 
-        const socket = io("http://localhost:8002/", {
+        const socket = io('http://' + process.env.REACT_APP_COLLAB_SERVER_IP + ':' + process.env.REACT_APP_COLLAB_SERVER_PORT, {
             transports: ["websocket"],
         });
 

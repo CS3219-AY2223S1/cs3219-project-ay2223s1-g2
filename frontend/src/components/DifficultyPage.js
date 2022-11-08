@@ -9,7 +9,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:8001');
+const socket = io('http://' + process.env.REACT_APP_MATCH_SERVER_IP + ':' + process.env.REACT_APP_MATCH_SERVER_PORT);
 
 function DifficultyPage() {
     
