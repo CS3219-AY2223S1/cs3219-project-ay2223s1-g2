@@ -37,11 +37,12 @@ jobs:
       - name: setup env
         working-directory: chat-service
         run: |
-          echo 'ENV= PROD' >> chat-service/.env
-          echo 'MONGO_IP= ${{secrets.CHAT_MONGO_IP}}' >> chat-service/.env
-          echo 'MONGO_PORT= ${{secrets.CHAT_MONGO_PORT}}' >> chat-service/.env
-          echo 'DB_LOCAL_URI= mongodb://127.0.0.1:27017/' >> chat-service/.env
+          echo 'ENV= PROD' >> .env
+          echo 'MONGO_IP= ${{secrets.CHAT_MONGO_IP}}' >> .env
+          echo 'MONGO_PORT= ${{secrets.CHAT_MONGO_PORT}}' >> .env
+          echo 'DB_LOCAL_URI= mongodb://127.0.0.1:27017/' >> .env
           cat .env
+          ls
       - name: ls
         working-directory: chat-service  
         run: ls
