@@ -22,7 +22,6 @@ export async function createUser(req, res) {
         if (username && password) {
             const encryptedPassword = await bcrypt.hash(password, BRCYPT_COST);
             const resp = await _createUser(username, encryptedPassword);
-            console.log(resp);
             if (resp.err) {
                 return res
                     .status(400)
@@ -72,7 +71,7 @@ export async function deleteUser(req, res) {
                         await blacklistToken(req.headers["authorization"]);
                         await _deleteUser(currUser.username);
                         return res.status(200).json({
-                            userId: currUser._id,
+                            // userId: currUser._id,
                             success: true,
                             message: "User deleted",
                         });
@@ -125,7 +124,7 @@ export async function updateUserPassword(req, res) {
                             password: encryptedPassword,
                         });
                         return res.status(200).json({
-                            userId: currUser._id,
+                            // userId: currUser._id,
                             success: true,
                             message: "User Updated",
                         });
