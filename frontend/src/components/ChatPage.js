@@ -7,12 +7,17 @@ import {
 import Grid2 from '@mui/material/Unstable_Grid2';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import io from 'socket.io-client';
 
 
 const MessageButton = styled(Button)`
-  padding-top: 15px;
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgb(196,196,196);
+  min-width: 100%;
+
 `;
 
 const MessageField = styled(TextField)`
@@ -20,18 +25,20 @@ const MessageField = styled(TextField)`
 `;
 
 const MessageBar = styled(Box)`
-  margin: 5px 10px 5px 10px;
+  margin: 5px 0px 5px 0px;
+  padding: 0px;
 `;
 
 const MessageRight = styled(Box)`
   margin: 5px 10px;
   margin-left: 40%;
-  padding: 15px;
+  padding: 0.8em;
   background: lightblue;
   min-width: 11%
   max-width: 60%;
   position: relative;
   float: right;
+  border-radius: 4px;
 `;
 
 const MessageLeft = styled(Box)`
@@ -43,24 +50,31 @@ const MessageLeft = styled(Box)`
   max-width: 60%;
   position: relative;
   float: left;
+  border-radius: 4px;
 `;
 
 const ChatBox = styled(Paper)`
-  height: calc(100% - 80px);
-  margin: 10px;
-  width: calc(100% - 20px);
+  height: calc(100% - 60px);
+  // margin-left: 10px;
+  // margin-right: 10px;
+  padding: 5px;
+  width: calc(100% - 10px);
   overflow-y: scroll;
+  //border: 1px solid rgb(160, 169, 191);
 `;
 
 const ChatWindow = styled(Paper)`
-  height: 300px;
-  width: 100%;
+  height: 290px;
+  width: calc(100% - 10px);
+  padding: 5px;
 `;
 
 function ChatPage(username, roomId) {
     const [messages, setMessage] = useState([]);
     const [chat, setChat] = useState('');
+    
     const socket = io('http://' + process.env.REACT_APP_CHAT_SERVER_IP + ':' + process.env.REACT_APP_CHAT_SERVER_PORT);
+    const body = useRef();
 
     function postMessage(event) {
         event.preventDefault()
@@ -75,7 +89,6 @@ function ChatPage(username, roomId) {
         socket.emit("joinRoom", {roomId: roomId});
       });
       socket.on("newMessage", (data) => {
-        console.log(data);
         setMessage((state) => [
             ...state,
             {
@@ -85,7 +98,6 @@ function ChatPage(username, roomId) {
           ]);
       });
       socket.on("updateChatLog", (data) => {
-        console.log(data);
         setMessage(data);
       });
       return () => {
@@ -95,29 +107,87 @@ function ChatPage(username, roomId) {
       }
     }, [username, roomId]);
 
+    useEffect(() => {
+      if (body.current) {
+        body.current.scrollTo({
+          left: 0,
+          top: body.current.scrollHeight,
+          behavior: 'smooth'
+        })
+      }
+    },
+    [messages])
+    
+
     return (
-      <ChatWindow>
-        <ChatBox elevation={2}>
-          {messages.map((msg, i) => {
-            if (msg.username === username) {
-              return <MessageRight key={i}>
-                <span>{msg.message}</span>
-              </MessageRight>
-            } else {
-              return <MessageLeft key={i}>
-                <span>{msg.message}</span>
-              </MessageLeft>
-            }
-          })}
+      <ChatWindow elevation={0}>
+        <ChatBox elevation={0} ref={body} style={{overflowY: "scroll"}}>
+          <>
+            {messages.map((msg, i) => {
+              if (msg.username === username) {
+                return <MessageRight key={i}>
+                  <span style={{whiteSpace: "pre-wrap"}}>{msg.message}</span>
+                </MessageRight>
+              } else {
+                return <MessageLeft key={i}>
+                  <span style={{whiteSpace: "pre-wrap"}}>{msg.message}</span>
+                </MessageLeft>
+              }
+            })}
+          </>
         </ChatBox>
         <MessageBar>
               <form onSubmit={postMessage}>
-                <Grid2 container spacing = {0}>
+                <Grid2 container spacing = {1}
+                  sx={{padding: 0}}
+                >
                   <Grid2 xs = {9}>
-                    <MessageField value={chat} onInput= { e=>setChat(e.target.value) }/>
+                    <MessageField 
+                      value={chat}
+                      label="" 
+                      placeholder="Type a message..." 
+                      multiline
+                      rows="1"
+                      inputProps={{
+                        style: {
+                          padding: "5px"
+                        }
+                      }}
+                      InputProps={{
+                        style: {
+                          padding: "5px"
+                        }
+                      }}
+                      onInput= { e=>setChat(e.target.value) }
+                      onKeyDown={(e) => {
+                        if(e.keyCode === 13 && !e.shiftKey) {
+                          
+                          postMessage(e);
+                        }
+                      }}
+                    />
                   </Grid2>
-                  <Grid2 xs = {3}>
-                    <MessageButton type="submit"><SendIcon/></MessageButton>
+                  <Grid2 xs = {3}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    padding="4px"
+                  >
+                    <MessageButton 
+                      type="submit"
+                      fullWidth
+                      sx={{
+                        height: "100%", 
+                        padding: "6px 4px 3px 4px",
+                        fontSize: {
+                          lg: 16,
+                          md: 14,
+                          sm: 10,
+                          xs: 6
+                        }}}
+                    >
+                      Send
+                    </MessageButton>
                   </Grid2>
                 </Grid2>
               </form>

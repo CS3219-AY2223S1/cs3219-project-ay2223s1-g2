@@ -85,6 +85,7 @@ function Navbar() {
 
     return (
         <React.Fragment>
+
             {isActive && (
                 <AppBar className="navBar">
                     <Toolbar>

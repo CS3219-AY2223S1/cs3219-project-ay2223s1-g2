@@ -10,7 +10,7 @@ export const client = createClient({
     legacyMode: true,
 });
 // export const client = createClient({
-//     url: "redis://localhost:6379",
+//     url: "redis://127.0.0.1:6379",
 // });
 client.on("connect", () => console.log("Client connected to Redis"));
 

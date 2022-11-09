@@ -46,15 +46,36 @@ jobs:
                   redis-version: ${{ matrix.redis-version }}
 
             - run: npm ci
-              working-directory: chat-service
-
+                  working-directory: chat-service
+                
             - run: npm run build --if-present
               working-directory: chat-service
 
             - run: npm test
               working-directory: chat-service
+
+            - run: npm ci
+              working-directory: question-service
+
+            - run: npm run seed --if-present
+              working-directory: question-service
+
+            - run: npm run build --if-present
+              working-directory: question-service
+
+            - run: npm test
+              working-directory: question-service
+
+            - run: npm ci
+              working-directory: matching-service
+
+            - run: npm run build --if-present
+              working-directory: matching-service
+
+            - run: npm test
+              working-directory: matching-service
               env:
-                  CI: true
+                CI: true
 
             - run: npm ci
               working-directory: user-service
