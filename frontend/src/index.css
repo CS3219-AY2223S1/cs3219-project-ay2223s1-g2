@@ -14,6 +14,8 @@
     --color-blog: #042c54;
     --color-text: #81afdd;
     --color-subtext: #ff8a71;
+
+    background-color: hsl(216, 60%, 95%);
 }
 
 ul {

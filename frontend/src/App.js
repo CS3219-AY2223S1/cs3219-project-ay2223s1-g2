@@ -18,6 +18,7 @@ import About from "./components/About";
 import { Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 import EndPage from "./components/EndPage";
+import './App.css';
 
 function App() {
     return (
