@@ -1,14 +1,11 @@
-# CS3219-AY22-23-Project-Skeleton
+# CS3219-AY22-23-G2-PeerPrep
 
-This is a template repository for CS3219 project.
+This is a repository for peerprep which is developed as a CS3219 project by Group 2
 
-## User Service
-1. Rename `.env.sample` file to `.env`.
-2. Create a Cloud DB URL using Mongo Atlas.
-3. Enter the DB URL created as `DB_CLOUD_URI` in `.env` file.
-4. Install npm packages using `npm i`.
-5. Run User Service using `npm run dev`.
+## Deployment
+1. Ensure that you have `docker` installed
+2. Rename the `.env.sample` to `.env`
+3. Run `docker-compose pull` in order to get the latest images for the deployment
+4. Run `docker-compose --env-file .env up -d`
+5. Go to `localhost:3000` to test the application
 
-## Frontend
-1. Install npm packages using `npm i`.
-2. Run Frontend using `npm start`.
