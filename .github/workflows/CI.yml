@@ -10,6 +10,8 @@ env:
   ENV: PROD
   CHAT_MONGO_IP: 127.0.0.1
   CHAT_MONGO_PORT: 27017
+  QN_MONGO_IP: 127.0.0.1
+  QN_MONGO_PORT: 27017
 
 jobs:
   build:
@@ -38,11 +40,23 @@ jobs:
 
     - run: npm ci
       working-directory: chat-service
-
+    
     - run: npm run build --if-present
       working-directory: chat-service
 
     - run: npm test
       working-directory: chat-service
+
+    - run: npm ci
+      working-directory: question-service
+
+    - run: npm run seed --if-present
+      working-directory: question-service
+
+    - run: npm run build --if-present
+      working-directory: question-service
+
+    - run: npm test
+      working-directory: question-service
       env:
         CI: true
