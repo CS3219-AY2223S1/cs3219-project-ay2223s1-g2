@@ -24,42 +24,42 @@ describe("/GET healthcheck", () => {
     });
 });
 
-// // Test Create Post Call
-// describe("Test POST Creation of Users", () => {
-//     it("New user created", (done) => {
-//         chai.request(server)
-//             .post("/api/user")
-//             .set("content-type", "application/json")
-//             .send({
-//                 username: username,
-//                 password: password,
-//             })
-//             .end((err, res) => {
-//                 res.body.message.should.equal(
-//                     "Created new user testSubject1 successfully!"
-//                 );
-//                 res.should.have.status(201);
-//                 done();
-//             });
-//     });
+// Test Create Post Call
+describe("Test POST Creation of Users", () => {
+    it("New user created", (done) => {
+        chai.request(server)
+            .post("/api/user")
+            .set("content-type", "application/json")
+            .send({
+                username: username,
+                password: password,
+            })
+            .end((err, res) => {
+                res.body.message.should.equal(
+                    "Created new user testSubject1 successfully!"
+                );
+                res.should.have.status(201);
+                done();
+            });
+    });
 
-//     it("Fail to create duplicate user", (done) => {
-//         chai.request(server)
-//             .post("/api/user")
-//             .set("content-type", "application/json")
-//             .send({
-//                 username: username,
-//                 password: password,
-//             })
-//             .end((err, res) => {
-//                 res.body.message.should.equal(
-//                     "(Duplicate Username): Kindly pick another username."
-//                 );
-//                 res.should.have.status(400);
-//                 done();
-//             });
-//     });
-// });
+    it("Fail to create duplicate user", (done) => {
+        chai.request(server)
+            .post("/api/user")
+            .set("content-type", "application/json")
+            .send({
+                username: username,
+                password: password,
+            })
+            .end((err, res) => {
+                res.body.message.should.equal(
+                    "(Duplicate Username): Kindly pick another username."
+                );
+                res.should.have.status(400);
+                done();
+            });
+    });
+});
 // describe("Test Login Success", () => {
 //     it("Login Success", (done) => {
 //         chai.request(server)
