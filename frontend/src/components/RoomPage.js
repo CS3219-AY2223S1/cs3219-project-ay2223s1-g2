@@ -47,7 +47,7 @@ function RoomPage() {
             <Grid2 container rowSpacing={1} columnSpacing={2}>
                 <Grid2 xs = {12}>
                     <Card sx={{
-                        height: "40vh",
+                        height: "36vh",
                         overflowY: "scroll"
                     }}
                     >
