@@ -101,7 +101,7 @@ const CodeEditor = (params) => {
             </Text> */}
             <Box sx={{ minWidth: 120 }}>
                 <FormControl>
-                    <InputLabel id="demo-simple-select-label">Mode</InputLabel>
+                    <InputLabel style={{marginTop: "5px"}} id="demo-simple-select-label">Mode</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
