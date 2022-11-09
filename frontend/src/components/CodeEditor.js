@@ -40,9 +40,6 @@ const CodeEditor = (params) => {
             }
         );
 
-        // for (let i = 1; i < editor.length; i++) {
-        //     editor[i].remove();
-        // }
         const socket = io(
             "http://" +
                 process.env.REACT_APP_COLLAB_SERVER_IP +
