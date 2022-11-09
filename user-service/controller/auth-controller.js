@@ -9,7 +9,6 @@ import {
 export async function logUserIn(req, res) {
     try {
         const { username, password } = req.body;
-        console.log(username);
         if (!(username && password)) {
             return res
                 .status(400)
@@ -30,11 +29,9 @@ export async function logUserIn(req, res) {
                         });
                     }
                     if (success) {
-                        console.log("BREAK");
                         const token = await signAccessToken(username);
-                        console.log(token);
                         return res.status(200).json({
-                            userId: currUser._id,
+                            // userId: currUser._id,
                             success: true,
                             token,
                             message: "Authentication Success: Log-in Completed",
@@ -55,7 +52,6 @@ export async function logUserIn(req, res) {
             });
         }
     } catch (err) {
-        console.log(err);
         return res
             .status(500)
             .json({ message: `Internal Server Error during Log-in ${err}` });

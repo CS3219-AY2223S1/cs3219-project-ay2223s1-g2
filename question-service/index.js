@@ -1,7 +1,7 @@
 // FileName: index.js// Import express
 import express from 'express'// Initialize the app
 import "dotenv/config";
-let app = express();// Setup server port
+export let app = express();// Setup server port
 
 
 // Import routes
@@ -18,9 +18,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
    extended: true
 }));
-
 async function mongooseConnect() {
-    await mongoose.connect('mongodb://' + process.env.QN_MONGO_IP + ':' + process.env.QN_MONGO_PORT + '/test', { useNewUrlParser: true});
+    await mongoose.connect('mongodb://' + process.env.QN_MONGO_IP + ':' + process.env.QN_MONGO_PORT, 
+        { 
+            useNewUrlParser: true,
+            useUnifiedTopology: true 
+        });
 }
 
 try {

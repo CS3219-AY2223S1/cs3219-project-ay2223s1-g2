@@ -6,26 +6,50 @@ import Select from "@mui/material/Select";
 import React, { useEffect, useState } from "react";
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/python/python";
+import "codemirror/mode/go/go";
+import "codemirror/mode/dockerfile/dockerfile";
+import "codemirror/mode/rust/rust";
 import CodeMirror from "codemirror";
 import io from "socket.io-client";
+import Cookies from "universal-cookie";
 import { Text } from "@chakra-ui/react";
+import "./CodeEditor.css";
 
 const CodeEditor = (params) => {
     console.log(params);
     const [users, setUsers] = useState([]);
+    const cookies = new Cookies();
+    const modeCookie = cookies.get("mode")
+    const [mode, setMode] = useState(
+        modeCookie === undefined ? "javascript" : modeCookie
+    );
+
+    const handleChange = (event) => {
+        setMode(event.target.value);
+        cookies.set("mode", event.target.value);
+        window.location.reload(false);
+    };
 
     useEffect(() => {
-        const editor = CodeMirror.fromTextArea(
+        var editor = CodeMirror.fromTextArea(
             document.getElementById("code-editor"),
             {
                 lineNumbers: true,
-                mode: "javascript",
+                mode: mode,
+                matchBrackets: true,
             }
         );
 
-        const socket = io('http://' + process.env.REACT_APP_COLLAB_SERVER_IP + ':' + process.env.REACT_APP_COLLAB_SERVER_PORT, {
-            transports: ["websocket"],
-        });
+        const socket = io(
+            "http://" +
+                process.env.REACT_APP_COLLAB_SERVER_IP +
+                ":" +
+                process.env.REACT_APP_COLLAB_SERVER_PORT,
+            {
+                transports: ["websocket"],
+            }
+        );
 
         socket.on("codeChange", (code) => {
             console.log("codeChange triggered", code);
@@ -68,7 +92,7 @@ const CodeEditor = (params) => {
                 socket.emit("codeChange", instance.getValue());
             }
         });
-    }, []);
+    }, [mode]);
 
     return (
         <Box>

@@ -6,7 +6,9 @@ export async function signAccessToken(username) {
     const token = jwt.sign({ username }, JWT_SECRET_KEY, {
         expiresIn: JWT_EXPIRY,
     });
+    console.log("STUCK");
     await client.SET(username, token);
+    console.log("STUCK HERE");
     return token;
 }
 
