@@ -53,7 +53,9 @@ function Navbar() {
             .post(URL_USER_SVC + "/logout", {})
             .catch((err) => {
                 if (err.response.status === STATUS_CODE_INTERNAL_SERVER_ERROR) {
-                    setErrorDialog("Internal Server Error");
+                    cookies.remove("token");
+                    cookies.remove("username");
+                    navigate("/login");
                 } else {
                     setErrorDialog("Please try again later");
                 }

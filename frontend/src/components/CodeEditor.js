@@ -1,4 +1,8 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import React, { useEffect, useState } from "react";
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/javascript/javascript";
@@ -71,6 +75,24 @@ const CodeEditor = (params) => {
             {/* <Text>
                 How many people are connected: <b> {users.length}</b>
             </Text> */}
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl>
+                    <InputLabel id="demo-simple-select-label">Mode</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={mode}
+                        label="mode"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value={"javascript"}>JavaScript</MenuItem>
+                        <MenuItem value={"python"}>Python</MenuItem>
+                        <MenuItem value={"rust"}>Rust</MenuItem>
+                        <MenuItem value={"go"}>Go</MenuItem>
+                        <MenuItem value={"dockerfile"}>Dockerfile</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
             <textarea id="code-editor" />
         </Box>
     );
