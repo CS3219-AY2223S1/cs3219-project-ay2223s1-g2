@@ -45,7 +45,7 @@ const ToggleButtonCardGroupSX = {
         borderBottomLeftRadius: '4px',
         borderLeft: '1px solid rgba(0, 0, 0, 0.12)',
     },
-    minHeight: 275
+    minHeight: 225
 }
 
 const FindMatchButtonSX = {
@@ -67,7 +67,7 @@ const FindMatchButtonSX = {
     backgroundColor: 'hsla(213, 80%, 50%, 0.2)', 
     color: "rgba(0, 0, 0, 0.54)",
     fontSize: 50,
-    minWidth: 855,
+    minWidth: 705,
     minHeight: 200,
     boxShadow: "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
     border: "1px solid rgba(0, 0, 0, 0.12)",
@@ -105,7 +105,7 @@ function DifficultyPage() {
 
     return (
         <Box display={"flex"} flexDirection={"column"} alignItems={"center"} >
-            <Typography variant={"h3"} marginBottom={"2rem"}
+            <Typography variant={"h4"} marginBottom={"2rem"}
                 sx={{color: "rgba(0, 0, 0, 0.65)",}}
             >
                 Choose your difficulty!
@@ -122,10 +122,10 @@ function DifficultyPage() {
                     color='primary'
                     sx={{
                         fontSize: {
-                            lg: 40,
-                            md: 40,
-                            sm: 40,
-                            xs: 40
+                            lg: 36,
+                            md: 36,
+                            sm: 36,
+                            xs: 36
                           },
                         ...ToggleButtonCardSX
                     }}
@@ -144,10 +144,10 @@ function DifficultyPage() {
                     color='primary'
                     sx={{
                         fontSize: {
-                            lg: 40,
-                            md: 40,
-                            sm: 40,
-                            xs: 40
+                            lg: 36,
+                            md: 36,
+                            sm: 36,
+                            xs: 36
                           },
                         ...ToggleButtonCardSX
                     }}
@@ -166,10 +166,10 @@ function DifficultyPage() {
                     color='primary'
                     sx={{
                         fontSize: {
-                            lg: 40,
-                            md: 40,
-                            sm: 40,
-                            xs: 40
+                            lg: 36,
+                            md: 36,
+                            sm: 36,
+                            xs: 36
                           },
                         ...ToggleButtonCardSX
                     }}
