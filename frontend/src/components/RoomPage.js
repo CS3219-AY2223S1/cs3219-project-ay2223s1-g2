@@ -25,7 +25,7 @@ function RoomPage() {
     const navigate = useNavigate();
     const {state} = useLocation();
     const { question } = state;
-    const questionData = question.data
+    const questionData = question.data[0]
     const roomId = params.id
     const handleNavigateHome = () => {
         navigate("/homepage");
