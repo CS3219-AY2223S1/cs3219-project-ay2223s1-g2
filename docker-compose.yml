@@ -16,7 +16,6 @@ services:
       REACT_APP_COLLAB_SERVER_PORT: ${REACT_APP_COLLAB_SERVER_PORT}
       REACT_APP_CHAT_SERVER_IP: ${REACT_APP_CHAT_SERVER_IP}
       REACT_APP_CHAT_SERVER_PORT: ${REACT_APP_CHAT_SERVER_PORT}
-      COLLAB_REDIS_IP: ${COLLAB_REDIS_IP}
 
   user-service:
     image: cs3219g2/userservice
@@ -98,13 +97,13 @@ services:
       - "27020:27020"
 
   userredis:
-    image: redis:latest
+    image: redis:4.0.10
     command: --port 6380
     ports:
       - "6380:6380"
 
   collabredis:
-    image: redis:latest
+    image: redis:4.0.10
     command: --port 6381
     ports:
       - "6381:6381"

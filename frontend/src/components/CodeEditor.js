@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -101,7 +101,7 @@ const CodeEditor = (params) => {
             </Text> */}
             <Box sx={{ minWidth: 120 }}>
                 <FormControl>
-                    <InputLabel id="demo-simple-select-label">Mode</InputLabel>
+                    <InputLabel style={{marginTop: "5px"}} id="demo-simple-select-label">Mode</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
